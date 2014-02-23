@@ -24,7 +24,7 @@ This book will teach you all you need to get started.  UNIX can be daunting unti
 
 It is not finished, but you can already buy it from [[https://leanpub.com/hackerways][Leanpub]]. You'll get it in EPUB for the iPad, mobi for the Kindle, and PDF for your computer, all DRM-free.  You'll get free updates as I add new chapters and improve the existing ones.
 
-#+include: "subscribe.html"
+#+include: "res/subscribe.html"
 
 Also, follow me on @hackerways for more frequent updates:
 #+begin_html
