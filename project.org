@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+#+begin_html
+---
+layout: article
+more: main page
+title: The example project
+author: Juan Reyero
+excerpt: We need a project to use as the guideline for teaching development tools.  This chapter presents the project, as part of The Way of the Hackers, a book that will teach you how to use classic Unix development tools by guiding you through the process of building a professional-looking website.
+keywords: unix development tools teaching
+---
+#+end_html
+
+This is the second chapter of [[id:A5898884-D135-47B6-8CC4-CCE8DEA979B8][The ways of the hackers]], a book that will teach you how to use classic development tools ---the ones most professional programmers use--- by guiding you through the process of building a professional-looking website.
+
+* §2 --- The example project
+We shall be building an example that will help give a clear purpose to the tools and techniques we talk about, while providing continuity and tying the book together.  The example started with an old pet idea of mine.
+
+** A political detour
+First, some context: I live in Spain, where an entrenched political elite is the source of growing discontent and cynicism among a sector of the population that, incidentally, includes me.  The problem is not one of a political color versus another: it is that the electoral laws seem designed to ensure that the choice will only ever be between the same old people, or their designated successors.
+
+So I thought that a web along the lines of "a-price-to-his-or-her-head.com" would capture the mood.  The idea was that you could nominate a politician, and then users could pledge to pay some money if said politician went home within a given time period.
+
+But only pledging to pay might carry little weight, so people might as well actually pay.  If the politician did not leave within the specified time period the money would be returned.  If the politician left the money would be given to a charity.
+
+At any point in time the sum of the money people are willing to pay for a given politician to find another career opportunity is a measure of the level of discontent with his or her performance.  And the knowledge by the politician that a large sum of money would be given to a charity if he left might be factored into a potential decision to spend more time with his family.
+
+And, while we are at it, why don't we allow the supporters of the politicians to pledge money as well, but in order for the politician to stay?  If she stays for at least a given length of time, say a year, the supporter's money will be sent to a charity.  The charity always wins.
+
+** Change for charity, changek.org
+You will find plenty of problems with this idea.  Like the fact that, unlike in real life, wealthier people can carry more weight.  Or that you are holding other people's money and you probably need an army of lawyers before you even buy the domain name.  Or that your users would need some amount of trust in you before sending in their money, and you'd need to somehow build this trust.  Also, luckily, the idea is probably too parochial.  There's plenty of places in the world where it doesn't apply.
+
+But I decided to stick to the basic idea, and make it a bit more general and at the same time less ambitious.
+
+So this is what we are going to build:
+
+- A website in which you propose a desired change.
+
+- Your users can send you money, in the form of bitcoins, pledging to pay to a charity of your choice if the proposed change happens.
+
+- If he change happens within a pre-arranged time period you send the money to the charity of your choice.  If it does not happen you send the bitcoins back to the user.
+
+You will be holding bitcoins, which will give us an opportunity to explore how to get paid with them.
+
+So there it is.  I hope you don't find it too hare-brained an idea.  It is not trivial nor, I hope, too complex.  It does require server programming, like most projects do, as well as some client-side programming.  Once you are done with it you will have seen most of the key technologies, and all the tools, used in professional web development today.
+
+** Design constraints
+We want the site to be functional and look good in a phone, a tablet, and a computer screen.
+
+We want it to look decent and professional, but not necessarily to win a graphic design price.  It should be easy to use, and it should include social media paraphernalia.
+
+* COMMENT Options
+#+PROPERTY: session *Python* :results none :exports code
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil

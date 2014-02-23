@@ -1,0 +1,8 @@
+introduction.md
+terminal.md
+tools.md
+editor.md
+programming.md
+speaking-python.md
+computing.md
+

@@ -1,0 +1,12 @@
+*~
+*.xfasl
+*.pyc
+*.aux
+*.log
+*.out
+*.tex
+*.toc
+ltxpng
+.DS_Store
+.emacs-bu/*
+

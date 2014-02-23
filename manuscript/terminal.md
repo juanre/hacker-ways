@@ -1,0 +1,744 @@
+
+
+# §2 --- The way of the terminal
+
+Learning only happens with practice.  Throughout this book I shall strive to make it easy for you to actually go to your computer and try things out: but unless you get excited about a project ---something you want to build--- and start working on it you'll find it very hard to learn.  In this chapter we'll start a project: we'll begin a web site.
+
+As we are about to start with a new project, the first thing we need to is to build a home for it in you computer.  A directory (or folder, as some people call it) of its own.   And we are going to build it with the terminal, because it will be the preferred way to talk to the computer and we might as well start using it as soon as possible.
+
+Start by finding the terminal and opening it.  In Mac OSX it is in the `Utilities` folder, accessible either from the `Go` finder menu (you'll see it if you click on the Desktop, for example) or as a sub-folder of `Applications`.  It should be also easy to find in a [Linux machine](https://help.ubuntu.com/community/UsingTheTerminal); do make sure you locate it.  And, while you are at it, you might consider making a shortcut so that you can open it easy and fast.  On the Mac, just drag the icon to the dock.
+
+Double click, and you should see something similar to this:
+
+![](images/terminal-screen.png)
+
+The line terminated with a \$ is called the prompt: think about it as the computer waiting for your instructions.  You will type things, and it will do what you asked for and write something back.
+
+The program with which you will be talking is not really the terminal.  It is called a **shell**, and it runs within the terminal.  The shell that you'll be using ---the one that comes by default with your computer--- is most likely [bash](http://en.wikipedia.org/wiki/Bash_(UNIX_shell)) (Bourne-again shell.  It was written in 1989.  Yes, we are using ancient tools around here.)
+
+The distinction between terminal and shell is important, because you will be using the terminal to connect to other computers.  When you do that you will be running a remote shell, but the interaction will still go through the same old terminal in your computer.  Think about the terminal as the window in your computer, and about the shell as the program running inside and waiting for instructions.
+
+Let's look at what the prompt tells us. First, `aldebaran:`, which happens to be the name of my computer with a colon at the end.  Then a tilde, `~`, which is a shorthand to refer to your home directory, followed by a space and the user name (inesuka happens to be my sister), and a final \$.
+
+It is customary that the prompt of normal users ends with \$, and the prompt for the superuser (a special, all-powerful user called root) ends in #.  This gives a visual clue that alerts you when you are logged in as root, and you can do real damage to the computer.
+
+## A note on following this book
+
+You should try things out.  Don't be afraid, we won't be doing anything that can damage your computer.  The ability to explore, to do and undo things daring to try them out, is key if you want to do anything of value with a computer.
+
+Type yourself, don't cut and paste.  Remember that you want to build muscle memory.  Typing commands at the shell should be effortless and automatic, and the more you practice the more it will become so.  The shell is often the best and the fastest way to tell your computer to do things, but only when you don't have to stop and think.  Do it, practice until it becomes second nature.
+
+### Nomenclature
+
+Throughout the book we'll find places where you need to type characters with a modifier, like control or meta (usually the command key or the alt key in OSX).  I will use `C` for control, `M` for meta, followed with a `-` and the key.  For example, `C-d` means press control, and with control pressed type `d`, and `C-j n` means type control `j`, then `n` without control.
+
+{#L454A6C63-4D72-4414-8E5B-01C34C3985E2}
+## The directory structure
+
+
+The shell always thinks that it is in some directory.  You may ask where it thinks it is by typing the following command, ended with a return:
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users/inesuka
+A> ~~~~~~~~
+
+This is how I shall be showing the interaction with the shell: first what you type, and in then what it answers back to you.  The \$ is the prompt, you are not supposed to type it.  After you type `pwd` your terminal should look something like this:
+
+![](images/pwd.png)
+
+Let's go back to the results of `pwd`,
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users/inesuka
+A> ~~~~~~~~
+
+Notice that it is `/Users/`, followed by the user name.  This is the standard place of a user's home directory in OSX.  In a Linux machine you'd probably get
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /home/inesuka
+A> ~~~~~~~~
+
+but it is the same thing: the home directory.
+
+### Moving to another directory
+
+Let's explore the directory structure by moving around.  You do it with the `cd` command, followed by the name of a directory.  The shell offers you couple of convenient shortcuts for directory names: the directory just above (the parent) of the current directory is `..` (two dots), and the current directory is `.` (a single dot).  So if you do this
+
+{lang="sh"}
+~~~~~~~~
+cd .
+~~~~~~~~
+
+you should stay in the current directory,
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users/inesuka
+A> ~~~~~~~~
+
+but if you do this
+
+{lang="sh"}
+~~~~~~~~
+cd ..
+~~~~~~~~
+
+you should go to the parent directory,
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users
+A> ~~~~~~~~
+
+You need spaces to separate things, so don't forget to add a space between `cd` and `..`.
+
+Yet another one back,
+
+{lang="sh"}
+~~~~~~~~
+cd ..
+~~~~~~~~
+
+and you are at the root of the directory structure,
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /
+A> ~~~~~~~~
+
+from which every directory stems.  You can move back to `Users`,
+
+{lang="sh"}
+~~~~~~~~
+cd Users
+~~~~~~~~
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users
+A> ~~~~~~~~
+
+Typing `cd` with no directory
+
+{lang="sh"}
+~~~~~~~~
+cd
+~~~~~~~~
+
+will take you back home, regardless of where you were.
+
+{lang="sh"}
+~~~~~~~~
+pwd
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> /Users/inesuka
+A> ~~~~~~~~
+
+Using the `~` shortcut for home will take you there as well:
+
+{lang="sh"}
+~~~~~~~~
+cd ~
+~~~~~~~~
+
+{#L9194FA0A-28F7-47DC-BFCD-0E61D30B7F81}
+## Listing the contents of a directory
+
+
+The `ls` command will tell you the contents of a directory,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> Documents/      Downloads/      Music/          afile.txt
+A> ~~~~~~~~
+
+Most of the commands you'll be calling from the shell use the old UNIX convention of allowing you to specify options with dashes and letters.  You  should know some of them.  For example, you may use `-l` with `ls`:
+
+{lang="sh"}
+~~~~~~~~
+ls -l
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> total 8
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Documents/
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Downloads/
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Music/
+A> -rw-r--r--  1 juanre  staff  17 Jan 23 11:07 afile.txt
+A> ~~~~~~~~
+
+to get a different, more detailed listing of the contents of the current directory.
+
+### Hidden files
+
+The convention is that file and directory names starting with `.` will be considered hidden, and will not be shown by default. You can use the `-a` option to show them:
+
+{lang="sh"}
+~~~~~~~~
+ls -a -l
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> total 16
+A> drwxr-xr-x  7 juanre  staff  238 Jan 23 11:07 ./
+A> drwxr-xr-x  8 juanre  staff  272 Jan 23 11:00 ../
+A> -rw-r--r--  1 juanre  staff   24 Jan 23 11:07 .a-hidden-file.txt
+A> drwxr-xr-x  2 juanre  staff   68 Jan 23 11:06 Documents/
+A> drwxr-xr-x  2 juanre  staff   68 Jan 23 11:06 Downloads/
+A> drwxr-xr-x  2 juanre  staff   68 Jan 23 11:06 Music/
+A> -rw-r--r--  1 juanre  staff   17 Jan 23 11:07 afile.txt
+A> ~~~~~~~~
+
+You may also combine options: `ls -al` would have been equivalent.
+
+{#LA6586ED3-AC24-4480-8B15-DAB7FD956ADF}
+## Asking for help
+
+
+The `man` program that will tell you pretty much all there is to know about any program.  Try it out, `man ls`.  You'll find yourself looking at the many options that `ls` offers.  You can navigate the manual page typing `space` (move forward one page) and `b` (move back one page).  Search for a word with `/` followed by the word to search, then `n` to see more search results.  Type `q` to leave the manual page and go back to the shell.
+
+Don't be worried about the many options available.  You only need to know a couple or three of them, and that the manual pages are there.  Then one day you will need something special, say a way to list the files so that the newest appear first, and you'll look in the man page to find the option `-t`,
+
+{lang="sh"}
+~~~~~~~~
+ls -lt
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> total 8
+A> -rw-r--r--  1 juanre  staff  17 Jan 23 11:07 afile.txt
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Documents/
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Downloads/
+A> drwxr-xr-x  2 juanre  staff  68 Jan 23 11:06 Music/
+A> ~~~~~~~~
+
+{#L459BED4D-E7E9-49F9-946A-0A5DE7B64F81}
+## Creating a directory
+
+
+Now is the time to make an actual first step towards building our project: make the directory in which it will live.  The command to do it is `mkdir`, followed by the name of the directory:
+
+{lang="sh"}
+~~~~~~~~
+mkdir changek
+~~~~~~~~
+
+Check that it's actually there,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> Documents/      Downloads/      Music/          afile.txt       changek/
+A> ~~~~~~~~
+
+and move into it,
+
+{lang="sh"}
+~~~~~~~~
+cd changek
+~~~~~~~~
+
+Ready to go.  Now we just have to fill it up.  But before let me show you a couple of things that will be handy.
+
+{#L9365B629-17FA-4CFD-A473-A5528DEB75D7}
+## Everything is text
+
+
+Almost everything you care about for controlling your computer, and almost everything you'll be doing for this project, involves manipulating text.  The one exception worth mentioning are images: photos are not text.  All the rest is.
+
+When I say text I mean plain old text, as in "a b", not "**a** *b*".  Formatting is not text, but you can use text to instruct the computer to apply formatting to other text.  For example, in order to instruct your browser to show the above as bold and italic I had to write `*a* /b/`, using text codes (`*`, and `/`) to tell a program how I want my text to be displayed.  When the program I am using converted it into something your browser can understand, it transformed to yet another set of codes: but textual codes they were, just the same.
+
+So forget the word processor paradigm, in which text can be formatted, and you can select a word, right click, and set it to display as italic.  In this world of software development and web creation text is text is text, and it has no formatting unless you use other text to specify it following a set of rules.
+
+{#LB0F001FB-052A-4490-9098-167A152DD271}
+## A conversation with the computer
+
+
+Everything is text because text is uniquely well suited to maintain [a dialogue](http://pgbovine.net/two-cultures-of-computing.htm) with the computer.  This is the main difference between the ways programmers and non-programmers interact with the computer.  We want to maintain a conversation ---ask it to do things, and let it answer back.  The text supports it, and we need to agree on a language that both the computer and the programmer speaks.  Most of this book will be about this language.
+
+{#LBFDD9D51-C27E-4A74-8F44-3BB325D01F4F}
+## Building and manipulating files
+
+
+In particular, all the programs you'll be interacting with in the shell will receive commands in text, and return their output in text.  For example, the `echo` command will just produce whatever you send it:
+
+{lang="sh"}
+~~~~~~~~
+echo "Hi there"
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> Hi there
+A> ~~~~~~~~
+
+{#L477EE735-E4B8-46EF-8829-FE3DF0B69AE0}
+### Pipes
+
+
+This might look frivolous, but it is not.  Because the shell allows you to link the output of a program to the input of another, simply using `|`.  This is called a pipe, and it is one of the key ideas behind the command line tools, their power and their beauty.  Because each one of the tools we'll be talking about does ---very well--- one simple thing: it is by being able to combine them using pipes that you can solve complex problems for which you have no single tool.
+
+For example, the very convenient `wc` program counts words (and lines, and characters).  When used with the `-w` option it will restrict its output to word counts.  Try this:
+
+{lang="sh"}
+~~~~~~~~
+echo "Hi there" | wc -w
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> 2
+A> ~~~~~~~~
+
+In case you were wondering.  You can also send the output of a program to a file using `>`, as in
+
+{lang="sh"}
+~~~~~~~~
+echo "Hi there" > index.html
+~~~~~~~~
+
+This should have created the file `index.html`,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index.html
+A> ~~~~~~~~
+
+And you can use `cat` to output the contents of a file,
+
+{lang="sh"}
+~~~~~~~~
+cat index.html
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> Hi there
+A> ~~~~~~~~
+
+When you send the output of a program to an existing file using `>` it will happily overwrite the file's contents with whatever you are sending.  You may instead append to it using `>>`,
+
+{lang="sh"}
+~~~~~~~~
+echo "How's that going?" >> index.html
+~~~~~~~~
+
+{lang="sh"}
+~~~~~~~~
+cat index.html
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> Hi there
+A> How's that going?
+A> ~~~~~~~~
+
+The output of `cat` can of course can be piped to any other program, as in
+
+{lang="sh"}
+~~~~~~~~
+cat index.html | wc
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> 2       5      27
+A> ~~~~~~~~
+
+Note that I didn't give `wc` the `-w` option, so it didn't restrict the output to word count.  It told us that we have 2 lines, 5 words and 27 characters in `index.html`.
+
+{#LD430F34B-9D02-41EB-80E1-25E5B720F254}
+### Standard input and output
+
+
+The channel to which a program sends its output when things go well, and that gets displayed by the shell, is called standard output.  The channel from which a program can get input, and to which the shell attaches pipes, is called standard input.  There's another output channel, standard error, that gets used when things go wrong.  You see whatever a program spits to it in the terminal just the same, but you'd need special incantations to pipe it around.  So when you do this:
+
+{lang="sh"}
+~~~~~~~~
+echo "going to stdout"
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> going to stdout
+A> ~~~~~~~~
+
+the output went to standard output, which can be piped to the standard input of another program,
+
+{lang="sh"}
+~~~~~~~~
+echo "piped to the stdin of wc" | wc
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> 1       6      25
+A> ~~~~~~~~
+
+### Multiple files
+
+You can send more than one file to most programs, just put them separated by spaces.  And take into account that the convention is that programs want first the options, then the files.  When no file is specified they tend to expect something in standard input, as when it comes from a pipe.
+
+Standard input can also come from you.  If you don't specify a file, it will just sit there waiting: type whatever, then C-d (control d) to tell the program that the input has finished.
+
+{#L8C307EAD-5E06-474A-B9DB-9D5785A6B03F}
+## Copying and moving
+
+
+Use `cp` with two arguments, the origin and the destination, to copy files:
+
+{lang="sh"}
+~~~~~~~~
+cp index.html index-cp.html
+~~~~~~~~
+
+This should have created another file,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html
+A> ~~~~~~~~
+
+If the last file is a directory the other files will be copied into it.  In this case you can have many files, not just two.  For example, let's build a new directory
+
+{lang="sh"}
+~~~~~~~~
+mkdir tmp
+~~~~~~~~
+
+and then copy the two files we have into it,
+
+{lang="sh"}
+~~~~~~~~
+cp index-cp.html index.html tmp
+~~~~~~~~
+
+We have the `tmp` directory,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html      tmp/
+A> ~~~~~~~~
+
+and the two files in the `tmp` directory,
+
+{lang="sh"}
+~~~~~~~~
+ls tmp/
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html
+A> ~~~~~~~~
+
+### Copying full directories
+
+You may copy a directory and its contents with the recursive `-r` option:
+
+{lang="sh"}
+~~~~~~~~
+cp -r tmp another-tmp
+~~~~~~~~
+
+This should have created a directory `another-tmp` with the same contents as `tmp`,
+
+{lang="sh"}
+~~~~~~~~
+ls another-tmp
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html
+A> ~~~~~~~~
+
+{#L992E78A5-2C6B-4994-8799-0C40B21F28EA}
+### Moving
+
+
+To move (or rename) files you use `mv` in pretty much the same way you use `cp`.  For example, let's rename `another-tmp`,
+
+{lang="sh"}
+~~~~~~~~
+mv another-tmp tmp2
+~~~~~~~~
+
+Sure enough,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html      tmp/            tmp2/
+A> ~~~~~~~~
+
+Or make another directory, and move to it everything in `tmp2`:
+
+{lang="sh"}
+~~~~~~~~
+mkdir tmp3 ; mv tmp2/index-cp.html tmp2/index.html tmp3
+~~~~~~~~
+
+We have used a `;` to separate two commands in a single line.
+
+{lang="sh"}
+~~~~~~~~
+ls tmp3
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   index.html
+A> ~~~~~~~~
+
+Now `tmp2` should be empty,
+
+{lang="sh"}
+~~~~~~~~
+ls tmp2
+~~~~~~~~
+
+{#L58E399CC-571E-4919-93AB-84C06722C4B4}
+## Deleting
+
+
+You may remove a file using `rm`.  For example, create a disposable file,
+
+{lang="sh"}
+~~~~~~~~
+echo "trash" > not-wanted
+~~~~~~~~
+
+Make sure it's there,
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index-cp.html   not-wanted      tmp2/
+A> index.html      tmp/            tmp3/
+A> ~~~~~~~~
+
+then remove it, and remove also the `index-cp.html` that we made in the previous section
+
+{lang="sh"}
+~~~~~~~~
+rm not-wanted index-cp.html
+~~~~~~~~
+
+{lang="sh"}
+~~~~~~~~
+ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index.html      tmp/            tmp2/           tmp3/
+A> ~~~~~~~~
+
+### Removing directories
+
+You can use `rmdir` to delete directories, but only when they are empty.  It should work with `tmp2`, which we emptied in the previous section,
+
+{lang="sh"}
+~~~~~~~~
+rmdir tmp2 ; ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index.html      tmp/            tmp3/
+A> ~~~~~~~~
+
+### Recursive deletion
+
+As with `cp`, you may use the `-r` option to recursively remove a directory and its contents.  Let's get rid of the `tmp` and `tmp3` directories,
+
+{lang="sh"}
+~~~~~~~~
+rm -r tmp tmp3 ; ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index.html
+A> ~~~~~~~~
+
+The most efficient way to make a costly mistake and get rid of all your work is to use the `-rf` options of `rm`, which means remove recursively all directories and files, and force removal.  I'll always remember when a fellow PhD student did `rm -rf ~` and wiped out a full year of not-backed-up PhD work.  Don't do it, and do make backups.
+
+{#L7DA395E5-42C2-4FDF-AB15-AC566EC1DB32}
+## Multiple names for files
+
+
+A trick you'll find useful is the ability to give files several names.  They are called *symbolic links*, and are made with the `ln` program.  Let's make another file,
+
+{lang="sh"}
+~~~~~~~~
+echo "for symlinking" > original.txt
+~~~~~~~~
+
+and then a symbolic link to it,
+
+{lang="sh"}
+~~~~~~~~
+ln -s original.txt synonym.txt ; ls
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> index.html      original.txt    synonym.txt
+A> ~~~~~~~~
+
+As `synonym.txt` is just another name for `original.txt`, if we modify one we modify the other:
+
+{lang="sh"}
+~~~~~~~~
+echo "another line" >> synonym.txt
+~~~~~~~~
+
+and check the original,
+
+{lang="sh"}
+~~~~~~~~
+cat original.txt
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> for symlinking
+A> another line
+A> ~~~~~~~~
+
+{#L98AE7722-8FD0-4AC5-84B3-16E21CEF1B75}
+## Wildcards
+
+
+The shell allows you to use `*` as a wild card in the names of files.  It matches any number of characters in file names, and you can combine with letters.  For example, let's create a couple of files,
+
+{lang="sh"}
+~~~~~~~~
+echo "second file" > another.html
+~~~~~~~~
+
+and
+
+{lang="sh"}
+~~~~~~~~
+echo "third file" > and-yet-another
+~~~~~~~~
+
+If we want to do something with all the files ending with `html` we can say
+
+{lang="sh"}
+~~~~~~~~
+ls *.html
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> another.html    index.html
+A> ~~~~~~~~
+
+But if we want all the files that have `another` in the name we could do
+
+{lang="sh"}
+~~~~~~~~
+cat *another*
+~~~~~~~~
+
+A> {linenos=off}
+A> ~~~~~~~~
+A> third file
+A> second file
+A> ~~~~~~~~
+
+{#L31EFEBEB-F015-4FE0-ACA3-054D7296DA95}
+## Completion
+
+
+The shell will try to make your life simpler by completing whenever it can, and offering you options, when you press `tab`.  Try it out: type `wc`, `space`, `a` (as if you were going to write the name of a file starting with `a`), and then `tab`.  You will see that it writes an `n`, because all the files starting with `a` follow with an `n`.  Press `tab` twice, and it will show you what files you have that start with `an`; type another letter, like a `d`, and the next `tab` will fill the full file name.
+
+{#LB65C9D4E-2689-41B8-899D-7AAD5EE86171}
+## Command line history
+
+
+Finally, you can go back in your command history.  Just type the up arrow or `C-p` (control p).  Most convenient, you can also search back.  Type `C-r`, then start typing whatever you are searching.  When it appears type enter to execute, or start editing it.
+
+## Clean up
+
+It has been a long and full chapter.  Once you have mastered it you will have advanced a lot.  Practice, try things out.
+
+Let's finish by cleaning up,
+
+{lang="sh"}
+~~~~~~~~
+rm *another*
+~~~~~~~~
+
+

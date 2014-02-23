@@ -1,0 +1,433 @@
+# -*- coding: utf-8 -*-
+#+begin_html
+---
+layout: chapter
+more: main page
+title: Speaking python
+author: Juan Reyero
+excerpt: Just as you can have a conversation with the shell, or pile the commands in a program, you can have a conversation with Python, or write Python commands to a file.
+keywords: UNIX programming scripts scripting python
+prev-title: From the shell to a program
+prev-url: programming.html
+next-title: Making the computer work for you
+next-url: computing.html
+toc: |
+  <ul class="org-ul toc">
+  <li><a href="#sec-1-1">Running Python</a></li>
+  <li><a href="#sec-1-2">Functions in Python</a></li>
+  <li><a href="#sec-1-3">Variables in Python</a></li>
+  <li><a href="#sec-1-4">Defining your own functions</a></li>
+  <li><a href="#sec-1-5">Exit Python: the end of file</a></li>
+  <li><a href="#sec-1-6">Writing a Python program</a></li>
+  <li><a href="#sec-1-7">Command line arguments for your Python program</a></li>
+  <li><a href="#sec-1-8">The shebang</a></li>
+  <li><a href="#sec-1-9">Programming Python</a></li>
+  <li><a href="#sec-1-10">Compiled languages and interpreted languages</a></li>
+  </ul>
+---
+#+end_html
+
+#+begin_src sh :results silent :exports none
+  export HOME=/Users/inesuka
+  unset http_proxy
+  unset https_proxy
+  cd
+  rm -rf tmp
+  rm -rf changek/bootstrap
+  rm -rf testdir
+  unalias rm
+  unalias cp
+  unalias mv
+  alias ls="ls -p"
+#+end_src
+
+* §6 --- Speaking Python
+
+So far we have been talking to the shell, and our programs have been a sequence of commands that the shell has executed one after the other.  But there are many other languages we can talk to the computer ---assuming, that is, that we are running a program that understands them.
+
+Python is a great language to learn.  Invented by [[http://en.wikipedia.org/wiki/Guido_van_Rossum][Guido van Rossum]] in the late 1980s, it has become extremely popular.  It emphasizes readability, making it simple to write programs that will be easy to read an understand by other programmers (including you, some months after you wrote the program).  It is clear, concise, and it runs pretty much everywhere.  It is often recommended as the best language to learn programming, but it is also a very powerful language: it runs many web sites, and it is the language of choice for many scientists and engineers.
+
+I won't be able to give you a full account of Python.  My goal is to help you understand what programming in Python looks like, and how it is done in the context of the shell.   By the end of this chapter you'll have written and run a first Python program, and you'll be on your way to learning much more.
+
+** Running Python
+:PROPERTIES:
+:ID:       410AC28C-9211-4B4B-A642-E7C4BCF155A2
+:END:
+
+You can start playing with Python simply by running it:
+
+#+begin_src sh :results none :exports source
+ python
+#+end_src
+
+Now you are talking to Python.  In particular, the program you are talking to is called the Python interpreter, because it will interpret python commands as they arrive.  You'll see that the prompt is different than the one you got on the shell: by default, it will be =>>>=.  Let's explore a bit what you can ask python to do:
+
+#+begin_src python
+  232 + 345.0/14.0
+#+end_src
+
+#+RESULTS:
+: 256.642857143
+
+** Functions in Python
+:PROPERTIES:
+:ID:       EFB46343-E073-4740-8012-15076EC87192
+:END:
+
+Let's say we want to do something a bit more exciting: how much is 2 to the 34th power?  Python has a /function/ to do that.  A function is a piece of code that will do something for you.  You call it by name, followed by the /arguments/ to the function ---the values to which the function will be applied--- enclosed by parentheses.
+
+For example, Python has a function called =pow= that will compute the power of two numbers for you.  You call it with two arguments: the number that you want to raise, and the number to which you want to raise.  So if you ask for this,
+
+#+begin_src python
+  pow(2, 34)
+#+end_src
+
+#+RESULTS:
+: 17179869184
+
+you get $2^{34}$.
+
+How about a square root?  Python also has a function to do that, but it is not loaded by default.  In order to use it you first need to ask Python to import its =math= library,
+
+#+begin_src python :exports source :results none
+  import math
+#+end_src
+
+To start using the functions coming in the =math= library you need to prepend their name with =math.=, so that Python will know where to look for them.  You use them like this:
+
+#+begin_src python
+  math.sqrt(12) / math.cos(2 * math.pi)
+#+end_src
+
+#+RESULTS:
+: 3.46410161514
+
+Note that we've also used =math.pi=.  This is not a function, but a variable that Python has preloaded for you with the value of $\pi$ with many decimals,
+
+#+begin_src python
+  math.pi
+#+end_src
+
+#+RESULTS:
+: 3.14159265359
+
+** Variables in Python
+:PROPERTIES:
+:ID:       26D24CA5-A153-446F-9E05-C12B6868C05E
+:END:
+
+You will have noticed that we didn't have to prepend the =math.pi= with a dollar sign, as we had to do when we wanted the value of shell variables.  Python is simpler in that way: you just assign a value to a name,
+
+#+begin_src python :results none
+  diameter = 23.0
+#+end_src
+
+then use the name of the variable wherever you would have used the value it contains,
+
+#+begin_src python
+  diameter * math.pi
+#+end_src
+
+#+RESULTS:
+: 72.2566310326
+
+** Defining your own functions
+:PROPERTIES:
+:ID:       BCB8154E-C098-4908-851F-C3D3BEA5359E
+:END:
+
+Python, like most languages, lets you define functions.  This one will compute the longitude of a circle given its diameter:
+
+#+begin_src python :results none
+  def longitude_circle(diameter):
+      return math.pi * diameter
+#+end_src
+
+Write it down to the Python interpreter just as it is shown here, respecting the spaces before the second line, and do not forget the colon after the closing parenthesis of the first line.
+
+Python is a bit peculiar with spaces at the beginning of lines: whenever a piece of code belongs to a higher instance, it has to be indented a fixed amount with respect to it.  In this case, the line implementing the function belongs to the function definition that started in the first line.  There is a colon at the end of the first line, saying "here comes my content", and then the content gets shifted to the right.  This rule ---forced indentations of blocks--- makes programs very readable.
+
+Let's call the function, for example, with the diameter of the earth (12742 km, or 7918 miles):
+
+#+begin_src python
+  longitude_circle(12742)
+#+end_src
+
+#+RESULTS:
+: 40030.173592
+
+When Python has seen =longitude_circle=, followed by something in parentheses, it has understood that you were calling a function.  It has searched among the functions it knows about (including the ones that are always available, like =pow=, the ones you might have imported, and the ones you might have defined, like =longitude_circle=), and has promptly found a definition for it.  It has checked that the number of arguments you are giving (one) matches the number of arguments that the definition of the function is expecting (one, named =diameter=), and it has started to run the function.
+
+The first thing it has done is to create a new variable named =diameter=, and assign to it the value with which you are calling the function, =12742=.  With this it has done the math as you have defined it, and it has returned the result.
+
+Let's do another example.  Say we want to know how long it would take to go around a circle at a given speed.  We can first compute the longitude, then divide by the speed:
+
+#+begin_src python :results none
+  def time_to_circle(diameter, speed):
+      length = math.pi * diameter
+      return length / speed
+#+end_src
+
+There's something ugly about this function.  Want to try to figure out what it is?
+
+We've actually told Python how to compute the longitude of a circle /again/.  That is a bad idea.  In general, it's much better and safer to use the functions we've already defined: this is why we write them in the first place.  Check this out:
+
+#+begin_src python :results none
+  def time_to_circle(diameter, speed):
+      return longitude_circle(diameter) / speed
+#+end_src
+
+Isn't it much better, and more readable?  Let's try it.  How may hours would it take to circle the earth at 120 km/h?
+
+#+begin_src python
+  time_to_circle(12742, 120)
+#+end_src
+
+#+RESULTS:
+: 333.584779934
+
+Not bad, but how many days is that?
+
+But wait again; I don't know about you, but I am getting tired of writing the diameter of the earth time and again, mostly because I don't remember it between one time and the next.  Let's make a variable for it,
+
+#+begin_src python :results none
+  earth_diameter = 12742
+#+end_src
+
+And now we compute the number of days, simply dividing by 24 the value returned by =time_to_circle=:
+
+#+begin_src python
+  time_to_circle(earth_diameter, 120) / 24.
+#+end_src
+
+#+RESULTS:
+: 13.8993658306
+
+** Exit Python: the end of file, =C-d=
+:PROPERTIES:
+:ID:       680363FB-3440-43EA-BA7A-83C38D26E2F6
+:END:
+
+When you are done interacting with Python you may exit the interpreter with =C-d= (press =d= while holding control).  The =C-d= is understood as an end-of-file marker not only by Python, but by all UNIX programs.  When you are talking to =python= it sees its input channel as something equivalent to an ever growing file: when you type a line and press Enter it is sent to =python= as another line in the never ending file, and executed.  When you press =C-d= it understands that the file-like object is is reading for input has finished, and exits.
+
+** Writing a Python program
+:PROPERTIES:
+:ID:       74EEE44B-F94A-4A0A-A66F-EACDDBB14F77
+:END:
+
+We can talk to Python one sentence at a time, as we have done until now, or we can write in a file all that we want Python to do and then ask it to do whatever the file says, as if we were writing a note with a list of instructions.  Let's open a file =circle.py=,
+
+#+begin_src sh :results none :exports source
+  vi circle.py
+#+end_src
+
+The =.py= is the traditional extension of Python programs.  Write your program in it, just as if you were writing directly to Python:
+
+#+begin_src python
+  import math
+
+  def longitude_circle(diameter):
+      return math.pi * diameter
+
+  def time_to_circle(diameter, speed):
+      return longitude(diameter) / speed
+
+  time_to_circle(1234, 23)
+#+end_src
+
+Save and quit when you are done (remember, escape, then =:wq=).  Can you think how you'd actually run it?  Just as with the shell, you'd ask Python to do it:
+
+#+begin_src sh :results none :exports source
+  python circle.py
+#+end_src
+
+Nothing.  Python did indeed return the result of the =time_to_circle= function, but it stayed within Python.  And now you are not there, you are on the shell.  In order to ask Python to send the results to the outside world you need to =print= them.  Change the last line so that it says
+
+#+begin_src python
+  print time_to_circle(1234, 23)
+#+end_src
+
+and now run again,
+
+#+begin_src sh :results none :exports source
+  python circle.py
+#+end_src
+#+begin_src python :exports results
+  time_to_circle(1234, 23)
+#+end_src
+
+#+RESULTS:
+: 168.553275414
+
+Much better.
+
+** Command line arguments for your Python program
+:PROPERTIES:
+:ID:       7B2F31F6-15BC-48D5-9218-B4AD1B311DC8
+:END:
+
+It is rather sad that the diameter and the speed are hard-coded.  If you want to run it with a different diameter you'll have to open the file, modify it, and save it before you are ready to run the program again.  There is, of course, a solution: you can send command line arguments to your Python program.
+
+It's actually quite simple.  You need to =import sys=, and then you'll have access to the =sys.argv= variable.  This is a special kind of variable named /list/.  It can contain many elements that you access with an index enclosed in brackets: you find the first command-line argument in =sys.argv[1]=, the second in =sys.argv[2]=, and so forth.  Edit the program, and make it look like this:
+
+#+begin_src python
+  import math
+
+  def longitude_circle(diameter):
+      return math.pi * diameter
+
+  def time_to_circle(diameter, speed):
+      return longitude_circle(diameter) / speed
+
+  import sys
+  diameter = float(sys.argv[1])
+  speed = float(sys.argv[2])
+  print time_to_circle(diameter, speed)
+#+end_src
+
+There is a catch, so let's follow it closely.  First we import =math=, because we know we'll need =math.pi=.  Next we define the functions.  So far it tracks exactly what we were doing when we were talking to Python real-time.  Then we import =sys=, because we want access to its =argv= variable.  But when we assign the values of the arguments, in =sys.argv[1]= and =sys.argv[2]=, to the =diameter= and =speed= variables, we are calling a previously unknown =float= function.
+
+It turns out that Python makes a distinction between strings, which are pieces of text, and numbers.  The command-line arguments coming in =sys.argv= are strings, and we want to convert them to floating-point numbers.  This is what the =float= function does.
+
+We are ready now to call the program with arguments:
+
+#+begin_src sh :results none :exports source
+  python circle.py 1000 10
+#+end_src
+#+begin_src python :exports results
+  time_to_circle(1000, 10)
+#+end_src
+
+#+RESULTS:
+: 314.159265359
+
+** The shebang
+:PROPERTIES:
+:ID:       79853D24-3545-43D3-AE2E-65202F601A6D
+:END:
+
+So we've written a Python program, but we have to run it with an explicit call to =python=.  Shouldn't it be aware of who is the one who has to run it?  There is a trick to do just that.  Of course, the first thing to do is to make it [[id:75DC1ED6-8BD2-49C7-9BC9-C79E44F0C0C8][executable]], just as we did when the shell script when we wanted to run it by itself:
+
+#+begin_src sh :exports source :results none
+  chmod +x circle.py
+#+end_src
+
+Now when we try to run it the shell will open it.  If the first line it finds looks like this:
+
+#+begin_src python
+  #!/usr/bin/python
+#+end_src
+
+it will strip the =#!= from the beginning, and it will understand that the rest, the =/usr/bin/python=, is the interpreter that will be able to run what's coming next.  If the =python= program in your system is actually residing in the =/usr/bin= directory everything will work fine.
+
+How can you know where the =python= program is?  Use =which=,
+
+#+begin_src sh
+  which python
+#+end_src
+
+#+RESULTS:
+: /usr/bin/python
+
+Indeed; in my system, =python= lives in =/usr/bin=.  Which means that before, when I was running =python= in the command line, I could have typed =/usr/bin/python= just as well.  It also means that, if I add the =#!/usr/bin/python= ---called the /shebang/ --- as the first line in the =circle.py= file, the shell will send all the other lines to =python=, who will be able to execute it.  Thus we can run, in the command line,
+
+#+begin_src :results none :exports source
+  ./circle.py 1 1
+#+end_src
+#+begin_src python :exports results
+  time_to_circle(1, 1)
+#+end_src
+
+#+RESULTS:
+: 3.14159265359
+
+** Programming Python
+:PROPERTIES:
+:ID:       BC964101-741C-4982-B572-7D22F2669560
+:END:
+
+By now you have learned a great deal about the shell, and about the way it organizes and connects the many players in your computer.  But we have only scratched the surface of Python.  My goal was not to teach you the language, but to help you understand what a Python program is, and how it plays along with the rest of the world.
+
+Python the language is beyond the scope of this book, but I do encourage you to go and learn more about it.  Knowing Python will greatly increase the types of problems that you can solve.  The other day, for example, one of my sons wanted to make a statistical analysis of the evolution of the length of songs over the last 100 years.  He found and downloaded a database that contained more than half a million songs, and he wrote a Python program that would read it, analyze it, and plot pretty graphs.  (In case you are wondering, he found that at the beginning of the seventies song length increased quite clearly, but was pretty much constant before and after.)
+
+There's just no way you can tackle problems of this caliber without some knowledge of a programming environment (although, for this particular problem, [[http://www.r-project.org][R]] would have been a better choice; but he had to run with what he knew, which was good enough).
+
+There are plenty of excellent resources online to learn Python.  One that we've used and found great is Udacity's [[https://www.udacity.com/course/cs101][Intro to Computer Science]].
+
+** Compiled languages and interpreted languages
+:PROPERTIES:
+:ID:       2F600A00-D1BF-407F-8E9C-FB7122B22027
+:END:
+
+When you were talking to Python, the =python= program was always an intermediary between you and the computer.  You ask for something in a language that you and Python understand, then =python= makes sure that it is translated into machine code ---the language that your computer actually understands--- and then run.  There translation to machine code is not free: you have to have =python= doing it, and it takes time and machine resources that you could be using to actually run your program.
+
+Languages that do that ---stand between you and the computer, translating as you go--- are called interpreted languages.  This is usually not a problem.  For most programming tasks the performance that you get from Python is plenty enough, and the ease of use and convenience of being able to talk a directly to the interpreter more than makes up for the loss of speed.
+
+In some cases, though, you need more performance than what an interpreted language like Python can give you.  The solution, then, is to write all or part of the program in a language that can be translated directly to machine code, thereby removing the need of an interpreter during the execution.  This translation to machine code is called /compilation/, and the king among compiled languages is C.
+
+*** A little C program
+:PROPERTIES:
+:ID:       8ECB802D-509B-4047-A4CC-512AF938CE0D
+:END:
+
+Developed by [[http://en.wikipedia.org/wiki/Dennis_Ritchie][Dennis Ritchie]] in 1972 in order to write UNIX (which he also invented), C is a rather small language with which most of UNIX is written.  All the tools we've been talking about (including Python) are written in C.  The book [[http://www.amazon.com/gp/product/0131103628/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0131103628&linkCode=as2&tag=juanreyero-20][The C Programming Language]][fn:disc] that Dennis Ritchie and Brian Kernighan wrote is one of the best computer science books ever, and one you should certainly read.
+
+I will not try to teach you C in this book, but I want to give you a glimpse of how it looks like, and what the compilation process entails.
+
+Make yourself a directory, and move into it.
+
+#+begin_src sh
+  mkdir ctest
+  cd ctest
+#+end_src
+
+Open a file called =greeting.c=, and write the following in it:
+
+#+begin_src C
+  #include <stdio.h>
+  int main(void)
+  {
+      int first = 10;
+      int second = 20;
+      printf("Hi there.  Looks like %d times %d is %d\n",
+             first, second, first*second);
+      return 0;
+  }
+#+end_src
+
+There are several interesting things to note.  First, the need to include things, just as you did in Python.  The =stdio.h= header has the definition of many functions, including the =printf= that we'll use in the program.
+
+Second, the use of curly brackets to mark blocks (while in Python it was indentation).  Even though it is not needed, we still indent blocks because it makes the code much more readable.
+
+Third, the need to define your variables.  You have to be explicit about what variables you want, and what type they are.  The two we've defined here, =first= and =second=, are integers.
+
+Third, the syntax in the =printf= is something we haven't seen before.  First a string with control codes that look like =%d=, then a list of values (in this case, =first=, =second=, and =first*second=.  The values in the list will replace the control codes, so we need the same number of both.
+
+And fourth, and most important: you cannot run this program.  At least, not yet.  First we need to compile it.  Run this:
+
+#+begin_src sh :results none :exports source
+  cc greeting.c
+#+end_src
+
+Now this is where you might have a problem if you are on a Mac.  By default, OSX does not install the command-line developer tools, and the C compiler comes with them.  Depending on the OSX version you are running it will ask you directly to install them (say yes), or you will need to figure out [[http://stackoverflow.com/questions/9329243/xcode-4-4-and-later-install-command-line-tools][how to do it]].  Do install them, you'll be using them all the time.
+
+Once =cc= (the C compiler) has finished with your file you'll find an =a.out= file in your directory.  This is the compiled program, already made executable.  You can run it directly,
+
+#+begin_src sh :exports source :results none
+  ./a.out
+#+end_src
+#+begin_src python :exports results
+  "Hi there.  Looks like 10 times 20 is 200"
+#+end_src
+
+#+RESULTS:
+: Hi there.  Looks like 10 times 20 is 200
+
+[fn:disc] Disclaimer: I do get a cut from your Amazon purchase. Thank you very much for your support.
+
+* COMMENT Options
+#+PROPERTY: header-args:sh :session *shell* :results output verbatim
+#+PROPERTY: header-args:python :session *Python* :results value
+#+property: exports both
+
+#+options:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil

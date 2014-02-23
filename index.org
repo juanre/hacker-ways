@@ -1,0 +1,100 @@
+# -*- coding: utf-8; eval: (rename-buffer "wh-index.org") -*-
+#+begin_html
+---
+layout: article
+more: main page
+title: The Hacker Ways
+author: Juan Reyero
+excerpt: Contents of The Hacker Ways, a book that will teach you the UNIX work environment.  Use a computer like a pro.
+keywords: unix terminal development teaching
+---
+#+end_html
+
+* The Hacker Ways
+
+A gentle introduction to the command line and the UNIX toolset.
+
+The UNIX toolset, like the one you'll find in Linux and OSX, is the work environment of choice of a very large number of programmers and research scientists.  If you are interested in a career as a programmer, data analyst, or researcher, you'll need to master it.
+
+This book will teach you all you need to get started.  UNIX can be daunting until you understand its logic: by the end of the book you will, and you'll know where to look for more.
+
+#+begin_center
+*[[https://leanpub.com/hackerways][Get your copy]] of The Hacker Ways*
+#+end_center
+
+It is not finished, but you can already buy it from [[https://leanpub.com/hackerways][Leanpub]]. You'll get it in EPUB for the iPad, mobi for the Kindle, and PDF for your computer, all DRM-free.  You'll get free updates as I add new chapters and improve the existing ones.
+
+#+include: "subscribe.html"
+
+Also, follow me on @hackerways for more frequent updates:
+#+begin_html
+<center>
+<a href="https://twitter.com/hackerways" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @hackerways</a>
+</center>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+#+end_html
+
+** Contents
+
+*** §1 --- [[file:introduction.org][Introduction]]
+[[id:A4157432-5137-4A7B-A8DA-97F07B3BD234][A declaration of intentions]] | [[id:C9D1ED72-BBBE-4F9C-8201-19B31F703E0C][The UNIX tools and environment]] | [[id:EA23F701-E436-4E1F-816D-A5289DD2BD20][The development process]] | [[id:029EE8C0-9F04-49A3-8DB2-B67B981E55FE][The Way of the Future]]
+
+*** §2 --- [[file:terminal.org][The way of the terminal]]
+[[id:454A6C63-4D72-4414-8E5B-01C34C3985E2][The directory structure]] | [[id:9194FA0A-28F7-47DC-BFCD-0E61D30B7F81][Listing the contents of a directory]] | [[id:A6586ED3-AC24-4480-8B15-DAB7FD956ADF][Asking for help]] | [[id:459BED4D-E7E9-49F9-946A-0A5DE7B64F81][Creating a directory]] | [[id:9365B629-17FA-4CFD-A473-A5528DEB75D7][Everything is text]] | [[id:B0F001FB-052A-4490-9098-167A152DD271][A conversation with the computer]] | [[id:BFDD9D51-C27E-4A74-8F44-3BB325D01F4F][Building and manipulating files]] | [[id:8C307EAD-5E06-474A-B9DB-9D5785A6B03F][Copying and moving]] | [[id:58E399CC-571E-4919-93AB-84C06722C4B4][Deleting]] | [[id:7DA395E5-42C2-4FDF-AB15-AC566EC1DB32][Multiple names for files]] | [[id:98AE7722-8FD0-4AC5-84B3-16E21CEF1B75][Wildcards]] | [[id:31EFEBEB-F015-4FE0-ACA3-054D7296DA95][Completion]] | [[id:B65C9D4E-2689-41B8-899D-7AAD5EE86171][Command line history]]
+
+*** §3 --- [[file:tools.org][Basic UNIX tools]]
+[[id:EC6C0221-E3A6-4A7C-87F6-334EB3288A1E][Bring in some content]] | [[id:FE07EC99-5CCE-49B9-B9BA-D7A3AB674A47][Bundling files with =tar=]] | [[id:959FBF99-8C5C-4470-9B85-7C11C31A0E45][Finding files with =find=]] | [[id:3E414D1D-B639-4DFA-98FD-42FBD5C5E9D9][Looking for differences between files]] | [[id:3A076896-07A4-4750-9961-B3C0F7FC5894][Find text in files]] | [[id:B0CF8902-D731-4D01-B881-D14A42D0243F][Finding words in files of a particular type]] | [[id:3382CF10-CE7F-4A70-BE19-27435A62353B][Looking for help]]
+
+*** §4 --- [[file:editor.org][The way of the editor]]
+[[id:5F4A0549-A88D-4784-BE17-8E1EF743BE98][Editing with Vi]] | [[id:7CF53D87-8E5D-461E-BB92-BCDD8F528FC4][Editing with Emacs]] | [[id:635159D4-672C-41F2-B10F-3FBD7E68992B][Why bother]] | [[id:75BD9720-06CA-4958-9393-8B4D46E72110][Programs are text files ---and documents can be as well]]
+
+*** §5 --- [[file:programming.org][From the shell to a program]]
+[[id:149ED997-4CDC-4026-B5D6-A5DAD843E3EB][Our first program]] | [[id:1750CE93-B64F-4249-A407-51826FA86053][Running the program]] | [[id:75DC1ED6-8BD2-49C7-9BC9-C79E44F0C0C8][Program permissions]] | [[id:B0BAEBB5-C424-41A2-A0DD-EFE55B826B8C][Variables in the shell]] | [[id:AFBBEE01-187D-473E-AF07-1AE76B26C73E][Sourcing scripts]] | [[id:8041E89C-AA38-447F-B4D5-2F25449E9197][Environment variables]] | [[id:267DFFB4-3BF1-41DB-A156-DBCF2F156C8F][Initializing environment variables]] | [[id:15F3F11D-06F9-46F5-9F7E-DF8E97426121][Conditionals in the shell]] | [[id:520442DF-CFF3-4451-BB58-728511454285][Looping the shell]] | [[id:804502AB-F2FA-4A8E-A48F-8C1341D191C7][Programming and the shell]]
+
+*** §6 --- [[file:speaking-python.org][Speaking Python]]
+[[id:410AC28C-9211-4B4B-A642-E7C4BCF155A2][Running Python]] | [[id:EFB46343-E073-4740-8012-15076EC87192][Functions in Python]] | [[id:26D24CA5-A153-446F-9E05-C12B6868C05E][Variables in Python]] | [[id:BCB8154E-C098-4908-851F-C3D3BEA5359E][Defining your own functions]] | [[id:680363FB-3440-43EA-BA7A-83C38D26E2F6][Exit Python: the end of file, =C-d=]] | [[id:74EEE44B-F94A-4A0A-A66F-EACDDBB14F77][Writing a Python program]] | [[id:7B2F31F6-15BC-48D5-9218-B4AD1B311DC8][Command line arguments for your Python program]] | [[id:79853D24-3545-43D3-AE2E-65202F601A6D][The shebang]] | [[id:BC964101-741C-4982-B572-7D22F2669560][Programming Python]] | [[id:2F600A00-D1BF-407F-8E9C-FB7122B22027][Compiled languages and interpreted languages]]
+
+*** §7 --- [[file:computing.org][Making the computer work for you]]
+[[id:8DF24CAD-4CFD-4A6C-8C6F-0D56FBDB45C9][The case for improving your work environment]] | [[id:5AB1ECA3-AC90-4B1F-B941-A11359B0C428][Running things in parallel with =screen=]] | [[id:4A846D06-E727-4918-AD65-0A15FD213ADA][A remote server running =screen=]] | [[id:A3D54299-F846-42EC-9810-F1AC7CE1EAD5][Python packages]] | [[id:985C7A2A-FED9-41F4-A017-1B55E6E4C377][Installing Python packages with =pip=]] | [[id:D2E58F89-FE38-4003-A7A4-3DBEFB471016][Improve your Python environment with IPython]] | [[id:491B6BE8-03AB-4D2C-9730-2A0D452A78B4][Asking for help in Python]] | [[id:CAA88779-22E0-4079-B589-C0C98CAF2C8D][Playing with Python and math]] | [[id:24C6BA31-F99E-48A6-9887-330CD480A541][Solve equations and plot graphs]]
+
+* COMMENT As a book
+
+Your idea
+Why it would be of interest to your readers
+How you'd structure your book
+A brief background on the technology
+The projected length of your book
+
+** Size
+5000 w/chapter, 10 chapters.
+
+3600 introduction.
+
+* COMMENT Ideas
+
+- Setting up the development environment
+  + The development directory
+  + Set up the local server
+  + Deploy locally: the beauty of make
+- Source control: work with safety net
+- Your first project
+  + Bootstrap: the template
+- Basic Javascript: make it responsive
+- Publish it online
+  + Your domain name
+  + Setting up the server for static pages
+  + Sending your pages to the server
+- Computing in the server
+  + A bit of Python
+  + Test locally
+  + Setting up the server with AWS
+  + Organize your data in the server
+  + Deploying
+- The finishing touches
+  + Set up Google Analytics
+  + Social sharing
+  + Get paid with Bitcoin
+
+* COMMENT Options
+#+PROPERTY: session *Python* :results none :exports code
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil

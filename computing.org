@@ -1,0 +1,507 @@
+# -*- coding: utf-8 -*-
+#+begin_html
+---
+layout: chapter
+more: main page
+title: Making the computer work for you
+author: Juan Reyero
+excerpt: Improve your computer work environment.  We'll learn how to use screen to manage several shell sessions in parallel, and Python to help us with our math problems, and in the process we'll see how to install python packages.
+prev-title: Speaking Python
+prev-url: speaking-python.html
+toc: |
+  <ul class="org-ul">
+  <li><a href="#sec-1-1">The case for improving your work environment</a></li>
+  <li><a href="#sec-1-2">Running things in parallel with <code>screen</code></a></li>
+  <li><a href="#sec-1-3">A remote server running <code>screen</code></a></li>
+  <li><a href="#sec-1-4">Python packages</a></li>
+  <li><a href="#sec-1-5">Installing Python packages with <code>pip</code></a></li>
+  <li><a href="#sec-1-6">Improve your Python environment with IPython</a></li>
+  <li><a href="#sec-1-7">Asking for help in Python</a></li>
+  <li><a href="#sec-1-8">Playing with Python and math</a></li>
+  <li><a href="#sec-1-9">Solve equations and plot graphs</a></li>
+  </ul>
+---
+#+end_html
+
+* §7 --- Making the computer work for you
+
+In the previous chapter we saw how to interact with Python.  In this chapter we want to start using it to do interesting stuff, but before we'll spend some time improving our work environment.
+
+First we'll introduce =screen=, a wonderful piece of software that will allow you to do many things at once within the terminal, without losing track of any; get used to =screen=, and you won't be able to be without it.
+
+Once we understand =screen= we'll learn how to install Python packages.
+
+By the end of the chapter you will know how to use =screen= to work in parallel workspaces within the terminal.  You will have also learned how to find and install Python packages, and you'll know a bit more about system administration.  You will have a rather nice Python environment set up, and we'll use it to take a mathematical detour that will give you a feeling of the many cool things you can do easily with Python once you know your way around.  You may, of course, skip the last part if you don't care about math: read the first parts, were we talk about =screen= and Python packages, and move on.
+
+** The case for improving your work environment
+:PROPERTIES:
+:ID:       8DF24CAD-4CFD-4A6C-8C6F-0D56FBDB45C9
+:END:
+
+It is good that you experiment with your work environment, and figure out how to tailor it to your needs.  And not only for the obvious fact that you might spend many hours a day in front of your computer, and you'd rather be comfortable.  The best work happens when the computer does not interfere between you and your task.  The interface to the computer should be as transparent to your thought processes as possible, the interaction effortless and automatic.  Only then your attention will be focused, and your work your best[fn:flow].
+
+It might be that one of the reasons that makes the UNIX work environment so compelling is that it lends itself so well to tuning and automating, leaving plenty of room for you to find your perfect setup.  Most things can be done with keyboard shortcuts that can be learned until they become almost autonomous.  When in Emacs, my fingers reach out for =C-x C-s= every now and then without me being fully aware of it; movement between applications happens with =Command-TAB=; the mouse is hardly every touched.
+
+Because I think (and this is a strongly felt guess, but a guess nevertheless) that reaching for the mouse, and aiming at a place to click, imposes a much higher cognitive load on your brain than just letting your fingers press a fully automated chord in the keyboard.  And I'd much rather have my brain working out the problem at hand than thinking about what it's doing with the mouse.
+
+** Running things in parallel with =screen=
+:PROPERTIES:
+:ID:       5AB1ECA3-AC90-4B1F-B941-A11359B0C428
+:END:
+
+When you have been working at the terminal for a while there may be quite a bit of information in it.  Its value is usually in the short term ---whatever you want to store for the future you'll stash away in a file and save it--- but it is important anyway.  It is your command line history, environment variables you might have declared, a Python session in which you have defined a couple of helper functions, and have stored some values in variables that you are using to perform repetitive computations.
+
+The time will come in which your work-flow will make you close valuable sessions.  For example, you are working with the Python interpreter when you realize that you need to install a new package, and while you are at it you need to check if a library is installed.   You'd rather not interrupt the interpreter, and you'd rather not leave your package installation to check the library out.
+
+There's a simple solution: start a new terminal or, if in OS-X, open another window with =Command-n= (or another tab with =Command-t=).  But it quickly becomes cumbersome, you end up with lots of terminal windows in your screen, and it's not the best way.  The best solution is to have multiple workspaces within your terminal, which is what =screen= does for you.  And it is the best because it works, it is based on easy-to-automate keyboard commands, you find it everywhere, and it affords you some measure of permanence between sessions.
+
+*** Starting =screen=
+
+Enter
+
+: clear
+
+in your terminal to clean up.  We'll be showing how =screen= works with a little experiment, and keeping things tidy will help.  We are just about to start creating parallel workspaces and moving among them, and it might get confusing.  So we are going to leave tracks, writing something recognizable; type something like this:
+
+: echo "This is the starting bash"
+
+And now prepare to run =screen=.  This is what you should see just before you press enter, after typing =screen=:
+
+#+attr_html: :alt The starting bash :title The starting bash :class img-thumbnail :width 574 :height 370
+[[file:images/screen-1-screen.png]]
+
+Once you press enter you will see a page-long description (check it out, you might see an invitation to send pizza to the authors).  Pressing space or enter will clear this page and start =screen= proper.  You should see a new, clean shell.  Let's leave a track,
+
+: echo "This is the first screen"
+
+Your terminal should now look more or less like this:
+
+#+attr_html: :alt The first workspace :title The first workspace :class img-thumbnail :width 574 :height 370
+[[file:images/screen-2-screen.png]]
+
+*** Creating a new =screen= workspace
+
+Type =C-a c=, and you'll find your terminal looking like a new shell again.  The =screen= man page calls it a window, but I'll use workspace because it does not look like a window at all.  Leave a track for later,
+
+#+attr_html: :alt The second workspace :title The second workspace :class img-thumbnail :width 574 :height 370
+[[file:images/screen-3-screen.png]]
+
+And, just for fun, build another one, =C-a c= again, and =echo= to know where you are:
+
+#+attr_html: :alt The third workspace :title The third workspace :class img-thumbnail :width 574 :height 370
+[[file:images/screen-4-screen.png]]
+
+*** Moving between =screen= workspaces
+
+If you type =C-a p= you will go back to the previous workspace.  Try it out, and your terminal should be back at
+
+#+attr_html: :alt The second workspace :title The second workspace :class img-thumbnail :width 574 :height 370
+[[file:images/screen-3-screen.png]]
+
+With =C-a n= you will go forward to the next workspace.  Experiment circling between workspaces back and forth, making sure you recognize them.
+
+*** Leaving =screen=
+
+When you are done with screen, or when you want to do something else with your terminal, type =C-a d=.  This will /detach/ your screen, and it will leave you at your initial bash,
+
+#+attr_html: :alt The initial bash again :title The initial bash again :class img-thumbnail :width 574 :height 370
+[[file:images/screen-5-screen.png]]
+
+where you can work as usual.  Now what's really nice is that, if you want to go back to your =screen= workspaces, you just run =screen= again, this time with the =-r= switch for /reattach/,
+
+: screen -r
+
+and you'll be back, moving with =C-a n= and =C-a p= among workspaces that remember your previous work and the state your programs were in, as if you had never left.
+
+*** Actually closing =screen=
+
+When you are done with it, you close =screen= by leaving all the shells it is running.  You close a shell by typing =C-d= (remember that =C-d= means [[id:680363FB-3440-43EA-BA7A-83C38D26E2F6][end of file]], and is also how you leave the Python interpreter).  When you have closed all the shells within =screen= it will not have further reason to stay alive, and it will exit.
+
+*** Pre-packaged screen
+
+Like most UNIX programs, =screen= is easily configurable with a text file.  Its configuration file, =~/.screenrc=, allows you to pre-load several workspaces.  And, while you are at it, you can also give them names, and make them start in different directories.  This is how my =.screenrc= looks like,
+
+#+begin_src sh :results none :exports source
+startup_message off
+defutf8 on
+nonblock on
+
+# hardstatusline
+hardstatus on
+hardstatus lastline
+hardstatus string '%{= b}%-Lw%{= g}%50> %n%f %t%{= b}%+w%<'
+
+# Startup settings
+screen -t home 0
+chdir /Users/juanre/hp
+screen -t hp 1
+chdir /Users/juanre/prj
+screen -t prj 2
+
+# Fix screen overwriting
+altscreen on
+#+end_src
+
+So when I start screen I have three workspaces, labeled =home=, =hp= and =prj=, and a nice text at the bottom of the terminal showing me where I am:
+
+#+attr_html: :alt A pre-packages screen :title A pre-packaged screen :class img-thumbnail :width 574 :height 370
+[[file:images/screen-6-screen.png]]
+
+** A remote server running =screen=
+:PROPERTIES:
+:ID:       4A846D06-E727-4918-AD65-0A15FD213ADA
+:END:
+
+In a remote server =screen= becomes much more than a convenience.  A remote server is, for example, the computer hosting your web pages.  We'll talk about how to connect to another computer in a later chapter.
+
+When you are working in a remote server it feels just like when you are working at the terminal in your computer, but slower.  The main difference is that the computer who's answering your commands is your server, not yours.
+
+The first thing you do after login in your server, before starting to work, is to run =screen=.  This allows you to keep several tracks in parallel, creating workspaces as you need them.  But then you have to disconnect from the server, and you don't want to stop what you are doing, because maybe one of the workspaces contains a long running program that has not finished, and in another you are editing a file.
+
+So you just detach from your screen, =C-a d=, and exit the server.  The next time you log in you'll reattach with =screen -r=, and it will be as if nothing had happened.  You'll be back to your long running program, maybe finished by now, and to the file you are editing, and to whatever workspaces you left when you disconnected.
+
+You can try something similar now: just exit your screen-running terminal.  Open a terminal again, then do =screen -r=.  If all has gone well you should be looking at the workspace where you were before you closed the terminal.
+
+** Python packages
+:PROPERTIES:
+:ID:       A3D54299-F846-42EC-9810-F1AC7CE1EAD5
+:END:
+
+Another way in which you improve your work environment is by adding functionality to it.  Python gives you an easy way to do it.
+
+Say you are a programmer.  You've been working on a cool problem, you've come up with a piece of software to solve it, and you decide to give it to the community.
+
+You want to make it available to other programmers, who may want to contribute to your code.  Luckily, you have been using =git= to keep track of your versions (more on =git= on a coming chapter), so you decide to store your software as a repository in [[http://github.com][Github]].  Once your software is there it is easy for other programmers to get copies, make improvements, and share them with you.
+
+The chances are not low that there will be other programmers around who want to help, or who can take advantage of your software to help them solve other problems: there were [[http://en.wikipedia.org/wiki/GitHub#Statistics][3.5 million users]] on Github on April 2013, and on December 2013 Github was hosting 10 million repositories.
+
+You also want to make your software available to users, so you package it up in a way that makes it is easy for other people to install.  In this section we'll be talking about these packages, and how to install them.
+
+*** The Python package index
+
+Say your hypothetical piece of software is a Python package.  If you want to make it as easy as possible for your users to find it you'll go and register it at the [[https://pypi.python.org/pypi][Python Package Index]], PyPI for short[fn:pypi].  Once your package is listed there your users will be able to find it and install it using a program called =pip=.
+
+** Installing Python packages with =pip=
+:PROPERTIES:
+:ID:       985C7A2A-FED9-41F4-A017-1B55E6E4C377
+:END:
+
+*** Installing =pip=
+
+It might be that your system already has =pip= installed.  [[id:79853D24-3545-43D3-AE2E-65202F601A6D][Remember]] =which=?  Try it out:
+
+#+begin_src sh :results none :exports source
+  which pip
+#+end_src
+
+If =pip= is installed =which= will tell you where it is.  If it is not installed =which= will stay quiet.
+
+Most likely =pip= will not be installed, so you'll need to install it.  The installation [[http://www.pip-installer.org/en/latest/installing.html][procedure]] is a rather unusual one: you need to download the installer,
+
+#+begin_src sh :results none :exports source
+  wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+#+end_src
+
+and then run it with Python,
+
+#+begin_src sh :results none :exports source
+  sudo python get-pip.py
+#+end_src
+
+*** Administrative privileges with =sudo=
+
+Note that we are not running Python as we usually do: there is a =sudo= before the call to =python=.  It is required because the installation procedure will need to write in locations of your computer that are protected.
+
+On your day-to-day interaction with the computer you are a normal user: you can modify and delete files in your home directory (either =/Users/your-login-name/= if you are in a Mac, or =/home/your-login-name/= if you are in Linux), which is plenty enough for normal work and it does not put the integrity of the computer at risk.
+
+But software is usually installed in places of the computer where all users will be able to run it, like =/usr/local/bin/=, and is usually protected so that normal users cannot remove it.
+
+If you want to install something you will need to temporarily acquire the power to do so: you will need administrative privileges.  This is what a =sudo= before a command does.  It will ask for your password, and if you enter it correctly it will grant administrative privileges to the command that you are running.  It will work if you are on the =sudoers= group; if you are not, you will be informed, and you will have to find somebody with administrative rights to your computer to do the installation for you.
+
+To recap, when you do this:
+
+#+begin_src sh :results none :exports source
+  sudo python get-pip.py
+#+end_src
+
+you'll be asked for your password and, if you enter it correctly, you'll be giving administrative rights to =python get-pip.py=.  If the person who wrote =get-pip.py= wanted to wipe out your computer, he could.  If somebody intercepts it when you download it, on its way from the Github server where it resides to your computer, she could make it do anything she wanted.  Which is kind of scary.
+
+But you'll be all-right.  There are many people making sure that =get-pip.py= does what it's supposed to do; and the address you'll be downloading =get-pip.py= from begins with =https=, which means that it will travel encrypted.
+
+Python offers a mechanism that helps you avoid installing things in your machine for everybody.  It is called [[https://www.google.com/search?client=safari&rls=en&q=python+virtualenv+tutorial&ie=UTF-8&oe=UTF-8][virtualenv]], and it makes a local installation of everything Python wherever you want.  It is very convenient when you are developing Python packages, but unless you don't have administrative rights to your computer you don't need to worry about it now.
+
+*** Checking the =pip= installation
+
+Make sure that you've installed =pip=, and it's available:
+
+#+begin_src sh
+  which pip
+#+end_src
+
+#+RESULTS:
+:
+: /usr/local/bin/pip
+
+You should now be ready to run it, if the shell is able to find it.  If it doesn't ---if =which= does not return a proper location--- it might be because you didn't follow [[id:267DFFB4-3BF1-41DB-A156-DBCF2F156C8F][my suggestion]] to add =/usr/local/bin= to the =PATH= environment variable, in which case you should do it now,
+
+#+begin_src sh
+  export PATH=/usr/local/bin:$PATH
+#+end_src
+
+** Improve your Python environment with IPython
+:PROPERTIES:
+:ID:       D2E58F89-FE38-4003-A7A4-3DBEFB471016
+:END:
+
+[[http://ipython.org][IPython]] is a great addition to your Python toolset.  We are going to install and use it for the Python shell it provides, much nicer than the standard =python= you've been interacting with so far.  But IPython does many more things: you might want to spend some time [[http://ipython.org/documentation.html][exploring it]].
+
+*** Command line completion
+:PROPERTIES:
+:ID:       9B94812A-C5F1-4599-BF58-C5539A57DA68
+:END:
+Command line completion is a big deal.  It is much easier and quicker to interact with a program that's helping you write ---as =bash= and Emacs do.  Let's install IPython, and then we'll take a closer look at completion.
+
+*** Install Readline and IPython
+
+Installing IPython is easy, thanks to =pip=.  But it turns out that it has a dependency ---a package it depends on--- that you may need to install first: [[http://docs.python.org/2/library/readline.html][Readline]], which "defines a number of functions to facilitate completion and reading/writing of history files from the Python interpreter".  It should be straight-forward to install:
+
+:  sudo pip install readline
+
+Once it's finished you can download and install IPython with
+
+: sudo pip install ipython
+
+If everything went well you should have now a working IPython installation.  Try it out typing
+
+: ipython
+
+This should open the =ipython= shell.
+
+*** Testing command line completion
+
+Import =math=,
+
+#+begin_src python :results none :exports source
+  import math
+#+end_src
+
+Then type
+
+#+begin_src python :results none :exports source
+  math.
+#+end_src
+
+and a TAB.  IPython will show you all the possible command completions, which are all the functions and variables available in the =math= module,
+
+#+begin_example
+math.acos       math.degrees    math.fsum       math.pi
+math.acosh      math.e          math.gamma      math.pow
+math.asin       math.erf        math.hypot      math.radians
+math.asinh      math.erfc       math.isinf      math.sin
+math.atan       math.exp        math.isnan      math.sinh
+math.atan2      math.expm1      math.ldexp      math.sqrt
+math.atanh      math.fabs       math.lgamma     math.tan
+math.ceil       math.factorial  math.log        math.tanh
+math.copysign   math.floor      math.log10      math.trunc
+math.cos        math.fmod       math.log1p
+math.cosh       math.frexp      math.modf
+#+end_example
+
+This is an extremely convenient thing to have.  If you want a quick glance of a module you just import it, then use command line completion to see its contents.
+
+Keep typing: a =f=, and TAB again:
+
+#+begin_src python :results none :exports source
+  math.f
+#+end_src
+
+#+begin_example
+math.fabs       math.floor      math.frexp
+math.factorial  math.fmod       math.fsum
+#+end_example
+
+You see where this is going.  If you now type =ac=, then TAB, it will finish the command for you:
+
+#+begin_src python :results none :exports source
+  math.factorial
+#+end_src
+
+** Asking for help in Python
+:PROPERTIES:
+:ID:       491B6BE8-03AB-4D2C-9730-2A0D452A78B4
+:END:
+
+When you are in the terminal, interacting with the shell, you [[id:A6586ED3-AC24-4480-8B15-DAB7FD956ADF][ask for help]] with =man=.   When in Emacs [[id:1FBA41B9-A257-455C-9311-DCF46565AE90][you do]] =M-x describe-function=.  When you are interacting with Python you ask for help with the function =help=,
+
+#+begin_src python :results output
+  help(math.cos)
+#+end_src
+
+#+RESULTS:
+: help(math.cos)
+: Help on built-in function cos in module math:
+:
+: cos(...)
+:     cos(x)
+:
+:     Return the cosine of x (measured in radians).
+
+When you are in IPython asking for help is even simpler: you only need to do
+
+#+begin_src python :results none :exports source
+ ?math.cos
+#+end_src
+
+** Playing with Python and math
+:PROPERTIES:
+:ID:       CAA88779-22E0-4079-B589-C0C98CAF2C8D
+:END:
+
+In the previous chapter we asked the computer to manipulate numbers.  It is reasonably easy to convince Python to do simple operations, such as the ones we did, or even combinations of them, such as the average of a list of numbers.
+
+It is a bit more difficult ---but very rewarding--- to convince your computer to do /symbolic/ math for you.  By symbolic we mean that we expect symbols to be manipulated, symbols like the $x$ in the following equation
+
+\[
+  x^5 + 3x^4 - 11x^3 - 27x^2 + 10x + 24 = 0.
+\]
+
+How about a way to write a program that would perform algebraic manipulations in symbols such as the above, and maybe find the exact values of $x$ for which the equation is true?  It is actually quite straight forward if you have the right package installed.
+
+With =pip= we can search for an algebra package,
+
+#+begin_src sh
+  pip search algebra
+#+end_src
+
+#+RESULTS:
+#+begin_example
+sympy                     - Computer algebra system (CAS) in
+                            Python
+VectorDict                - dict with recursive operations
+                            (algebraic, set, logicial)
+Assimulo                  - A package for solving ordinary
+                            differential equations and
+                            differential algebraic equations.
+features                  - Feature set algebra for linguistics
+qmath                     - qmath provides a class for deal with
+                            quaternion algebra and 3D rotations.
+                            Root evaluations and Moebius
+                            transformations are implemented.
+scikits.odes              - A python module for ordinary
+                            differential equation anddifferential
+                            algebraic equation solvers
+colorname                 - colorname tries to assign a name to a
+                            color, using predefined color
+                            definitions and linear algebra.
+Ceygen                    - Cython helper for linear algebra with
+                            typed memoryviews built atop the Eigen
+                            C++ library
+relalg                    - Relational algebra for python
+...
+#+end_example
+
+The first one is [[http://sympy.org/en/index.html][sympy]], an awesome package for symbolic mathematics.  Let's install it:
+
+#+begin_src sh :results none :exports source
+  sudo pip install sympy
+#+end_src
+
+And you are ready to start playing.
+
+** Solve equations and plot graphs
+:PROPERTIES:
+:ID:       24C6BA31-F99E-48A6-9887-330CD480A541
+:END:
+
+Open =ipython=.  First we need the functionality that =sympy= available.  [[id:EFB46343-E073-4740-8012-15076EC87192][Remember]] that in order to make the functionality in a package available to the current session we need to =import= it,
+
+#+begin_src python :results none
+  import sympy as sp
+#+end_src
+
+but here we are playing a trick.  We'll be using =sympy= later on, and we don't want to use the full name every time we call one of its functions.  By adding the =as sp= to the import we define =sp= as a synonym, so we can type =sp= wherever =sympy= was called for.
+
+Once =sympy= is loaded we define =x= as a variable,
+
+#+begin_src python :results none
+  x = sp.var('x')
+#+end_src
+
+After this we can use =x= in equations.  We may, for example, want to solve the previous one.  We start by storing it into a variable =p=, for polynomial,
+
+#+begin_src python :exports source
+  p = x**5 + 3*x**4 - 11*x**3 - 27*x**2 + 10*x + 24
+#+end_src
+
+#+RESULTS:
+
+where =x**5= means $x^5$.
+
+Now we can evaluate the polynomial at any value of =x= simply by running its =subs= function (for substitute),
+
+#+begin_src python
+  p.subs(x, 10)
+#+end_src
+
+#+RESULTS:
+: 116424
+
+Note that you can explore it further simply by typing =p.=, then tab: IPython will show you all the possible completions, which include =subs= and all the other functions defined in =p=.
+
+Can we solve the equation?  Sure,
+
+#+begin_src python :exports both
+  sp.solve(p, x)
+#+end_src
+
+#+RESULTS:
+:
+: [-4, -2, -1, 1, 3]
+
+Now you may ask, how come I came up with such a nice polynomial as an example, one that has neat roots?  I cheated, of course.  I defined it as
+
+#+begin_src python :exports source
+  p = (x+4) * (x+2) * (x+1) * (x-1) * (x-3)
+#+end_src
+
+#+RESULTS:
+
+which was easy to see when it would be zero, and then asked =sympy= to expand it for me,
+
+#+begin_src python
+  sp.expand(p)
+#+end_src
+
+#+RESULTS:
+: x**5 + 3*x**4 - 11*x**3 - 27*x**2 + 10*x + 24
+
+I didn't even have to write it up in LaTeX for nice formatting, =sympy= did that for me as well:
+
+#+begin_src python
+  sp.latex(sp.expand(p))
+#+end_src
+
+#+RESULTS:
+: x^{5} + 3 x^{4} - 11 x^{3} - 27 x^{2} + 10 x + 24
+
+Can we plot it?  We can, with =sp.plot=.  We need to give it the coordinate with which we want to plot, =x=, and its range:
+
+#+begin_src python :results none :exports source
+   sp.plot(p, (x, -4.5, 3.5))
+#+end_src
+
+#+attr_html: :alt The initial bash again :title The initial bash again :class img-thumbnail :width 574 :height 441
+[[file:images/sympy-example.png]]
+
+Some familiarity with Python and =sympy= can do a lot for your appreciation of mathematics, and your ability to explore them.
+
+[fn:pypi] There are 39361 packages available at PyPI as of 2014-01-14.
+
+[fn:flow] Only then can you hope to enter what top athletes and many computer programmers call /the flow/, a state of mind in which  you let your mind focus by itself, and in which you can spend many joyful hours feeling as if your work just happens.
+
+* COMMENT Options
+#+PROPERTY: header-args:sh :session *shell* :results output verbatim
+#+PROPERTY: header-args:python :session *Python* :results value
+#+property: exports both
+
+#+options:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
