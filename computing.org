@@ -8,6 +8,8 @@ author: Juan Reyero
 excerpt: Improve your computer work environment.  We'll learn how to use screen to manage several shell sessions in parallel, and Python to help us with our math problems, and in the process we'll see how to install python packages.
 prev-title: Speaking Python
 prev-url: speaking-python.html
+next-title: Managing your digital life
+next-url: git.html
 toc: |
   <ul class="org-ul">
   <li><a href="#sec-1-1">The case for improving your work environment</a></li>

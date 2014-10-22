@@ -1,0 +1,504 @@
+# -*- coding: utf-8 -*-
+#+begin_html
+---
+layout: chapter
+more: main page
+title: Managing your digital life
+author: Juan Reyero
+excerpt: When writing or programming you quite soon reach the point at which you need to keep track of your work as it progresses.  With git you can go back in time, keep several versions of a project, and share your work with other developers.
+keywords: unix terminal git version control distributed
+prev-title: Making the computer work for you
+prev-url: computing.html
+toc: |
+  <ul class="org-ul toc">
+  <li><a href="#sec-1-1">Bring in some content</a></li>
+  <li><a href="#sec-1-2">Bundling files with <code>tar</code></a></li>
+  <li><a href="#sec-1-3">Finding files with <code>find</code></a></li>
+  <li><a href="#sec-1-4">Looking for differences between files</a></li>
+  <li><a href="#sec-1-5">Find text in files</a></li>
+  <li><a href="#sec-1-6">Finding words in files of a particular type</a></li>
+  <li><a href="#sec-1-7">Looking for help</a></li>
+  </ul>
+---
+#+end_html
+
+#+begin_src sh :results silent :exports none
+  export HOME=/Users/inesuka
+  unset http_proxy
+  unset https_proxy
+  cd
+  rm -rf tmp
+  rm -rf changek/bootstrap
+  unalias rm
+  unalias cp
+  unalias mv
+  alias ls="ls -p"
+#+end_src
+
+* §8 --- Managing your digital life
+
+When writing or programming you soon feel the need to keep track of your work.  Being able to go back in time to your book as it was three weeks ago, for example.  Or seeing the differences between yesterday's working version of a program and today's failing one.  Programs that help you do these things are called revision control software, and will be a key part of your toolset.  Anything that you create and that will change over time ---either as part of the creation process, or as part of its working life--- should be managed by a revision control system.
+
+The need to keep track of the different versions of files has been felt by programmers since the very beginning of the craft.  The first solution cited in the [[http://en.wikipedia.org/wiki/Source_Code_Control_System][Wikipedia]] dates from 1972 (I was, for the record, two years old), and was written by Marc J. Rochkind.  The first revision control program that I actually used was [[http://en.wikipedia.org/wiki/Revision_Control_System][RCS]], written back in 1982 by Walter F. Tichy.  It spawned [[http://en.wikipedia.org/wiki/Concurrent_Versions_System][CVS]], that could work on full projects instead of only individual files, and in turn inspired [[http://en.wikipedia.org/wiki/Apache_Subversion][subversion]] in 2000.
+
+Subversion, or =svn=, is still in used today by some open source projects.  But most of the world is moving over to [[http://git-scm.com][Git]], which is what you need to learn.
+
+Git was written in 2005 by Linus Torvalds, the creator of Linux, in order to manage the source code of the Linux kernel.  It is a radical departure of everything that had been done before, and a much better solution in many ways.
+
+Git is not a simple program: it can do many things, and it might be overwhelming.  However, normal life with Git does boil down to a handful of commands that you need to know.
+
+** Figuring Git out
+
+The most important thing you need to know about Git is that
+
+A cursory look at them seems to suggest that several hundred are actually tutorials
+
+
+#+begin_src sh
+  cd ~/changek ; ls
+#+end_src
+
+#+RESULTS:
+: index.html
+
+(Note how we can have more than one command per line if we use a =;= to separate them.)
+
+Just as we left it in the [[file:terminal.org][previous chapter]].  We can also see what's in index.html,
+
+#+begin_src sh
+  cat index.html
+#+end_src
+
+#+RESULTS:
+: Hi there
+: How's that going?
+
+** Bring in some content
+:PROPERTIES:
+:ID:       EC6C0221-E3A6-4A7C-87F6-334EB3288A1E
+:END:
+
+We'll be using [[http://getbootstrap.com][Bootstrap]] to help us style our page.  Bootstrap is a library; a bunch of files intended to work together in order to provide some functionality to programmers.  In this case, the functionality we'll get from it is an easy way to give a professional look to your pages and to make them adapt to different screen sizes.
+
+You may download the library from your browser, but as we are learning to work with the terminal we might as well download from there.  The two main command-line programs to download from the web are =curl= and =wget=.  Most likely you'll have =curl= installed if you are on OSX, and =wget= if you are on Linux.
+
+We don't want to litter our working directory with downloads, so let's first build a temporary directory
+#+begin_src sh :results none
+  mkdir ~/tmp
+#+end_src
+
+and move to it,
+
+#+begin_src sh :results none
+  cd ~/tmp
+#+end_src
+
+And we are ready to download.  Now let me take a small detour.  What you would typically do is go to the [[http://getbootstrap.com][Bootstrap]] page, right-click in the download link, copy the address, and paste it in the command line to download.  But it is distributed as a zip file, and I want to show you UNIX way, which is =tar=.  So I have re-packed it, and made it available in my own server.  Here's the command line to download it:
+#+begin_src sh :results none
+  curl -Os http://juanreyero.com/bootstrap-3.0.3-dist.tgz
+#+end_src
+
+And make sure it came,
+#+begin_src sh
+  ls
+#+end_src
+
+#+RESULTS:
+: bootstrap-3.0.3-dist.tgz
+
+** Bundling files with =tar=
+:PROPERTIES:
+:ID:       FE07EC99-5CCE-49B9-B9BA-D7A3AB674A47
+:END:
+
+The =tar= program bundles many files into one, usually named with the prefix =tar=, and extracts files from a =tar= bundle.
+
+The =tgz= extension in the example is a very common contraction of the extensions =tar= and =gz=.  So the file we've just downloaded could have been named
+
+: bootstrap-3.0.3-dist.tar.gz
+
+and it would mean the same: that it has been compressed with =gzip= (hence the =.gz=) after being packaged with =tar=.  You can uncompress it to get the tar,
+#+begin_src sh
+  gunzip bootstrap-3.0.3-dist.tgz ; ls
+#+end_src
+
+#+RESULTS:
+: bootstrap-3.0.3-dist.tar
+
+You should always check the contents of a =tar= file before unpacking it.  You do it with the =tvf= options, as in
+#+begin_src sh
+  tar tvf bootstrap-3.0.3-dist.tar | head -n 4
+#+end_src
+
+#+RESULTS:
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/css/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/fonts/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/js/
+
+(Note how I [[id:477EE735-E4B8-46EF-8829-FE3DF0B69AE0][piped]] the output of =tar= to =head=, a program that shows the first lines of the input and ignores the rest, so I didn't have to clutter the page too much.)
+
+The content of the =tar= file sounds reasonable, so let's unpack for good.  Replacing the =t= in the options with an =x=,
+#+begin_src sh
+  tar xvf bootstrap-3.0.3-dist.tar
+#+end_src
+#+RESULTS:
+#+begin_example
+x dist/
+x dist/css/
+x dist/fonts/
+x dist/js/
+x dist/js/bootstrap.js
+x dist/js/bootstrap.min.js
+x dist/fonts/glyphicons-halflings-regular.eot
+x dist/fonts/glyphicons-halflings-regular.svg
+x dist/fonts/glyphicons-halflings-regular.ttf
+x dist/fonts/glyphicons-halflings-regular.woff
+x dist/css/bootstrap-theme.css
+x dist/css/bootstrap-theme.min.css
+x dist/css/bootstrap.css
+x dist/css/bootstrap.min.css
+#+end_example
+
+The unpacking of the =tar= file has created a =dist= directory,
+
+#+begin_src sh
+  ls
+#+end_src
+
+#+RESULTS:
+: bootstrap-3.0.3-dist.tar	dist/
+
+The =tar= program is able to deal with compressed files as well when you add the =z= option, so you didn't have to uncompress before unpacking.  Let's try it out.  First compress it back,
+#+begin_src sh
+  gzip bootstrap-3.0.3-dist.tar ; ls
+#+end_src
+
+#+RESULTS:
+: bootstrap-3.0.3-dist.tar.gz	dist/
+
+then check the contents again, but now adding the =z= option
+#+begin_src sh
+  tar ztvf bootstrap-3.0.3-dist.tar.gz | head -n 4
+#+end_src
+
+#+RESULTS:
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/css/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/fonts/
+: drwxr-xr-x  0 juanre staff       0 Dec  5 17:40 dist/js/
+
+*** Creating =tar= files
+
+You'll certainly want to build =tar= files.  You do it by replacing the =x= in the options by a =c=, and by specifying a file name for the bundle.  We could, for example, pack the content of our working directory with:
+#+begin_src sh
+  cd ~ ; tar zcvf changek.tgz changek
+#+end_src
+
+#+RESULTS:
+: a changek
+: a changek/index.html
+
+#+begin_html
+  <a href="http://xkcd.com/1168/"><img class="center" alt="xkcd tar" src="http://imgs.xkcd.com/comics/tar.png"/></a>
+#+end_html
+
+*** Summary of =tar=
+
+The =tar= program has many more options and interesting use cases, but basic usage is not so bad.  You can certainly remember the three main incantations:
+
+- Create a file bundle with =zcvf=,
+#+begin_src sh :results none :exports source
+  tar zcvf changek.tgz changek
+#+end_src
+- Check the contents of a bundle with =ztvf=
+#+begin_src sh :results none :exports source
+  tar ztvf changek.tgz
+#+end_src
+- And unpack a bundle with =zxvf=,
+#+begin_src sh :results none :exports source
+  tar zxvf changek.tgz
+#+end_src
+
+*** Move things in place
+
+After unpacking we have a =dist= directory with the files that came along when we downloaded bootstrap.  Let's [[id:992E78A5-2C6B-4994-8799-0C40B21F28EA][move]] it to its final location,
+#+begin_src sh
+  mv ~/tmp/dist ~/changek/bootstrap ; cd ~/changek ; ls
+#+end_src
+
+#+RESULTS:
+: bootstrap/	index.html
+
+** Finding files with =find=
+:PROPERTIES:
+:ID:       959FBF99-8C5C-4470-9B85-7C11C31A0E45
+:END:
+
+This is another tool that you'll probably find yourself using all the time.  The basic invocation is:
+#+begin_src sh
+  find . -name bootstrap.css
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/css/bootstrap.css
+
+The first argument is the directory where you want to search.  The =-name= is the search condition.  You can use [[id:98AE7722-8FD0-4AC5-84B3-16E21CEF1B75][wildcards]] in your searches.  For example, to find the names that start with bootstrap do:
+#+begin_src sh
+  find . -name bootstrap\*
+#+end_src
+
+#+RESULTS:
+: ./bootstrap
+: ./bootstrap/css/bootstrap-theme.css
+: ./bootstrap/css/bootstrap-theme.min.css
+: ./bootstrap/css/bootstrap.css
+: ./bootstrap/css/bootstrap.min.css
+: ./bootstrap/js/bootstrap.js
+: ./bootstrap/js/bootstrap.min.js
+
+Note the =\= before the =*=: it is meant to tell the shell to leave the following =*= go, not to treat it as a wildcard, and pass it untouched to the program being invoked ---the =find= program, in this case---.  It is called an /escape/, and it is a trick used thorough.  If we had written the =*= without the escape this is what would have happened:
+#+begin_src sh
+  find . -name bootstrap*
+#+end_src
+
+#+RESULTS:
+: ./bootstrap
+
+The shell has expanded the =bootstrap*= to the existing =bootstrap= directory, and thus has called =find= as
+#+begin_src sh :results none
+  find . -name bootstrap
+#+end_src
+which is not what we wanted.
+
+We can call =find= with all sorts of interesting arguments.  For example, if we want to limit the search to files we can say
+#+begin_src sh
+  find . -name bootstrap\* -type f
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/css/bootstrap-theme.css
+: ./bootstrap/css/bootstrap-theme.min.css
+: ./bootstrap/css/bootstrap.css
+: ./bootstrap/css/bootstrap.min.css
+: ./bootstrap/js/bootstrap.js
+: ./bootstrap/js/bootstrap.min.js
+
+Or we can find the files that have been modified in the last minute,
+#+begin_src sh
+  find . -name bootstrap\* -type f -mtime -1m
+#+end_src
+
+#+RESULTS:
+
+We get nothing, because none of the files has been modified in the last minute.  Let's force it by using =touch= on one of the files.  With =touch= you set the file's access time to now (and you create the file if it didn't exist):
+#+begin_src sh :results none
+  touch ./bootstrap/js/bootstrap.js
+#+end_src
+
+And now search again,
+#+begin_src sh
+  find . -name bootstrap\* -type f -mtime -1m
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/js/bootstrap.js
+
+** Looking for differences between files
+:PROPERTIES:
+:ID:       3E414D1D-B639-4DFA-98FD-42FBD5C5E9D9
+:END:
+
+The =diff= program returns the difference between two files, using a clever but easy to understand [[http://en.wikipedia.org/wiki/Diff#Unified_format][syntax]].  Let's take two identical files: the =index.html= file, and an exact copy:
+#+begin_src sh
+  cp index.html another.html ; ls
+#+end_src
+
+#+RESULTS:
+: another.html	bootstrap/	index.html
+
+Let's run =diff= on them:
+#+begin_src sh
+  diff index.html another.html
+#+end_src
+
+#+RESULTS:
+
+Nothing.  Good.  When two files are identical there is no difference.  Remember what was on =index.html=,
+#+begin_src sh
+  cat index.html
+#+end_src
+
+#+RESULTS:
+: Hi there
+: How's that going?
+
+Let's [[id:477EE735-E4B8-46EF-8829-FE3DF0B69AE0][append]] another line in =another.html=,
+#+begin_src sh :results none
+  echo "Yet another line" >> another.html
+#+end_src
+and another one, just for fun,
+#+begin_src sh :results none
+  echo "This is the last line" >> another.html
+#+end_src
+
+Now check the contents,
+#+begin_src sh
+  cat another.html
+#+end_src
+
+#+RESULTS:
+: Hi there
+: How's that going?
+: Yet another line
+: This is the last line
+
+Nice.  Let's check again the output of diff,
+#+begin_src sh
+  diff index.html another.html
+#+end_src
+
+#+RESULTS:
+: 2a3,4
+: Yet another line
+: This is the last line
+
+Here it is.  It tells you that, after line 2, lines 3 to 4 have been added, and it lists the new lines.  This is something that you'll use all the time to answer questions like did I change this file?  Is it the same as that other file?
+
+** Find text in files
+:PROPERTIES:
+:ID:       3A076896-07A4-4750-9961-B3C0F7FC5894
+:END:
+
+The =grep= program can find text in files.  For example, to extract from =index.html= the line that contains the word =that= you can do
+#+begin_src sh
+  grep that index.html
+#+end_src
+
+#+RESULTS:
+: How's that going?
+
+You can call it with several files, and it will tell you to which file the line or lines it found belong:
+#+begin_src sh
+  grep there *.html
+#+end_src
+
+#+RESULTS:
+: another.html:Hi there
+: index.html:Hi there
+
+If you want to match words ignoring differences between capital and non-capital letters you can use the =-i= option,
+#+begin_src sh
+  grep -i yet *.html
+#+end_src
+
+#+RESULTS:
+: another.html:Yet another line
+
+** Finding words in files of a particular type
+:PROPERTIES:
+:ID:       B0CF8902-D731-4D01-B881-D14A42D0243F
+:END:
+
+This is another problem that pops out very often.  Say you want to find which among your Python files (ending in =.py=) include a particular word, and that your files are spread in several subdirectories.  Or, as we are going to do, which among your =.html= files contains the word =there=.  Let's first move one of the files to a directory,
+#+begin_src sh
+  mv another.html bootstrap ; ls
+#+end_src
+
+#+RESULTS:
+: bootstrap/	index.html
+
+The first thing we need to do is to find all the =.html= files, and we [[id:959FBF99-8C5C-4470-9B85-7C11C31A0E45][know]] how to do that:
+#+begin_src sh
+  find . -name \*.html
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/another.html
+: ./index.html
+
+Now we would like to pipe this results to =grep=, but we have a problem: the output of =find= is just text; it happens to represent file names, but if we send it go =grep= as is =grep= will never know.  It will think it is plain old text, and it will search for whatever we want to find within it.  For example,
+#+begin_src sh
+  find . -name \*.html | grep another
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/another.html
+
+We've found the line that contains another, but we've done nothing to the /contents/ of the files.  This is useful when you want to find a file whose name contains a word, but now we want something else: we want to peek inside the files.
+
+In order to do that we need another program: =xargs=, which is kind of tricky: it takes standard input and a program, and arranges things so that the standard input is sent as the files of that program.  For example, lets send the name of a file to standard output, to be piped:
+#+begin_src sh
+  ls *.html
+#+end_src
+
+#+RESULTS:
+: index.html
+
+Now we pipe it to =xargs=, so that it goes to its standard input:
+#+begin_src sh
+  ls *.html | xargs grep -i hi
+#+end_src
+
+#+RESULTS:
+: Hi there
+
+Whatever =xargs= received in standard input (in this case, the output of =ls=) it sent as a parameter to the program =grep -i hi=.
+
+Knowing this, we can refine our incantation so that it does search inside files, as
+#+begin_src sh
+  find . -name \*.html | xargs grep -i hi
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/another.html:Hi there
+: ./bootstrap/another.html:This is the last line
+: ./index.html:Hi there
+
+Do you see why it found two lines in =./bootstrap/another.html=?  Remember that =-i= stands for ignore case.
+
+It turns out there is another way of running a program on all the files found by =find=.  I think it is messier, so I only use it in the one ocasion in which the above command is messed up: when your file names include spaces.  You do it with the =-exec= argument to =find=, followed by the command, ended in =\;=.  In the place where you want the file names you put ={}=:
+#+begin_src sh
+  find . -name \*.html -exec grep -i hi {} \;
+#+end_src
+
+#+RESULTS:
+: Hi there
+: This is the last line
+: Hi there
+
+This sort of works, but it does not print the file name where the line was found.  This is because =grep= has been called once per file, every time a file was found, instead of one time with all the files as before.  And when you call =grep= with only one file it assumes you know what file you sent, and it does not write it back.  In this case we don't know it, because it was =find= doing the calling, so we ask =grep= to output the file name as well with the =-H= option:
+#+begin_src sh
+  find . -name \*.html -exec grep -i -H hi {} \;
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/another.html:Hi there
+: ./bootstrap/another.html:This is the last line
+: ./index.html:Hi there
+
+Much better.  Another thing to know is that you can usually group arguments.  In this case, the =-i -H= can become =-iH=, and it should still work:
+#+begin_src sh
+  find . -name \*.html -exec grep -iH hi {} \;
+#+end_src
+
+#+RESULTS:
+: ./bootstrap/another.html:Hi there
+: ./bootstrap/another.html:This is the last line
+: ./index.html:Hi there
+
+In fact, this is what we were doing when calling [[id:FE07EC99-5CCE-49B9-B9BA-D7A3AB674A47][=tar=]] (remember the =zcvf= and =zxvf=?).  But =tar= is special in that it lets you not put the =-= in its optional arguments.
+
+** Looking for help
+:PROPERTIES:
+:ID:       3382CF10-CE7F-4A70-BE19-27435A62353B
+:END:
+
+This section might be a bit overwhelming.  Don't worry: you don't have to remember it all.  You know how to look for [[id:A6586ED3-AC24-4480-8B15-DAB7FD956ADF][help]], and you will develop an intuition that tells you "I am sure there's a way to tell this program to behave like this".  For example, I didn't remember about the =-H= argument to =grep=, but I knew it had to be there.  So I checked in the man page, and there it is.  The things that you use all the time ---and this will include the =find= piped to =xargs= with =grep=--- you will remember without problems.
+
+* COMMENT Options
+#+property: session *shell*
+#+property: results output verbatim
+#+property: exports both
+
+#+options:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
