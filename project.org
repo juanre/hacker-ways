@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#+begin_html
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
+#+begin_export html
 ---
 layout: article
 more: main page
@@ -8,9 +9,9 @@ author: Juan Reyero
 excerpt: We need a project to use as the guideline for teaching development tools.  This chapter presents the project, as part of The Way of the Hackers, a book that will teach you how to use classic Unix development tools by guiding you through the process of building a professional-looking website.
 keywords: unix development tools teaching
 ---
-#+end_html
+#+end_export
 
-This is the second chapter of [[id:A5898884-D135-47B6-8CC4-CCE8DEA979B8][The ways of the hackers]], a book that will teach you how to use classic development tools ---the ones most professional programmers use--- by guiding you through the process of building a professional-looking website.
+This is the second chapter of [[file:index.org][The ways of the hackers]], a book that will teach you how to use classic development tools ---the ones most professional programmers use--- by guiding you through the process of building a professional-looking website.
 
 * §2 --- The example project
 We shall be building an example that will help give a clear purpose to the tools and techniques we talk about, while providing continuity and tying the book together.  The example started with an old pet idea of mine.

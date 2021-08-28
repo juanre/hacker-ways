@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#+begin_html
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
+#+begin_export html
 ---
 layout: chapter
 more: main page
@@ -25,7 +26,7 @@ toc: |
   <li><a href="#sec-1-10">Programming and the shell</a></li>
   </ul>
 ---
-#+end_html
+#+end_export
 
 #+begin_src sh :results silent :exports none
   export HOME=/Users/inesuka

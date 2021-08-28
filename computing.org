@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#+begin_html
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
+#+begin_export html
 ---
 layout: chapter
 more: main page
@@ -23,7 +24,7 @@ toc: |
   <li><a href="#sec-1-9">Solve equations and plot graphs</a></li>
   </ul>
 ---
-#+end_html
+#+end_export
 
 * §7 --- Making the computer work for you
 

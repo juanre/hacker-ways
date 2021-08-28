@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#+begin_html
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
+#+begin_export html
 ---
 layout: chapter
 more: main page
@@ -22,7 +23,7 @@ toc: |
   <li><a href="#sec-1-7">Looking for help</a></li>
   </ul>
 ---
-#+end_html
+#+end_export
 
 #+begin_src sh :results silent :exports none
   export HOME=/Users/inesuka
@@ -39,9 +40,9 @@ toc: |
 
 * §3 --- Basic UNIX tools
 
-Most of the tools you'll be using in the terminal, including those presented in the [[file:tools.org][previous chapter]], were designed by the people who created UNIX back in the late sixties and early seventies.  They did an amazing job.  People like [[http://en.wikipedia.org/wiki/Ken_Thompson][Ken Thompson]] and [[http://en.wikipedia.org/wiki/Dennis_Ritchie][Dennis Ritchie]] are heroes in the computing world: the system they created is at the heart of most servers running the internet, and at the core of all OSX and Linux computers.  Dennis also invented the C programming language, with which most of the rest has been written.
+Most of the tools you'll be using in the terminal, including those presented in the [[file:tools.org][previous chapter]], were designed by the people who created UNIX back in the late sixties and early seventies.  They did an amazing job.  People like [[https://en.wikipedia.org/wiki/Ken_Thompson][Ken Thompson]] and [[https://en.wikipedia.org/wiki/Dennis_Ritchie][Dennis Ritchie]] are heroes in the computing world: the system they created is at the heart of most servers running the internet, and at the core of all OSX and Linux computers.  Dennis also invented the C programming language, with which most of the rest has been written.
 
-The tools you'll be running are not the ones they wrote; there have been plenty of rewrites over the years.  Yours most likely come from the [[http://www.gnu.org/gnu/gnu.html][GNU]] project, the brainchild of [[http://stallman.org][Richard Stallman]] ---another legendary programmer--- or from the BSD UNIX from Berkeley.  When looking at the [[id:A6586ED3-AC24-4480-8B15-DAB7FD956ADF][man]] page of any program type =G= to go to the end, and you'll usually see something about the history of the program and its authors there.
+The tools you'll be running are not the ones they wrote; there have been plenty of rewrites over the years.  Yours most likely come from the [[https://www.gnu.org/gnu/gnu.html][GNU]] project, the brainchild of [[https://stallman.org][Richard Stallman]] ---another legendary programmer--- or from the BSD UNIX from Berkeley.  When looking at the [[id:A6586ED3-AC24-4480-8B15-DAB7FD956ADF][man]] page of any program type =G= to go to the end, and you'll usually see something about the history of the program and its authors there.
 
 Let's get started.  Open the terminal and go to the =changek= directory that you [[id:459BED4D-E7E9-49F9-946A-0A5DE7B64F81][built]] in the previous chapter.  And check out what's in there, just in case.
 #+begin_src sh
@@ -68,7 +69,7 @@ Just as we left it in the [[file:terminal.org][previous chapter]].  We can also 
 :ID:       EC6C0221-E3A6-4A7C-87F6-334EB3288A1E
 :END:
 
-We'll be using [[http://getbootstrap.com][Bootstrap]] to help us style our page.  Bootstrap is a library; a bunch of files intended to work together in order to provide some functionality to programmers.  In this case, the functionality we'll get from it is an easy way to give a professional look to your pages and to make them adapt to different screen sizes.
+We'll be using [[https://getbootstrap.com][Bootstrap]] to help us style our page.  Bootstrap is a library; a bunch of files intended to work together in order to provide some functionality to programmers.  In this case, the functionality we'll get from it is an easy way to give a professional look to your pages and to make them adapt to different screen sizes.
 
 You may download the library from your browser, but as we are learning to work with the terminal we might as well download from there.  The two main command-line programs to download from the web are =curl= and =wget=.  Most likely you'll have =curl= installed if you are on OSX, and =wget= if you are on Linux.
 
@@ -83,9 +84,9 @@ and move to it,
   cd ~/tmp
 #+end_src
 
-And we are ready to download.  Now let me take a small detour.  What you would typically do is go to the [[http://getbootstrap.com][Bootstrap]] page, right-click in the download link, copy the address, and paste it in the command line to download.  But it is distributed as a zip file, and I want to show you UNIX way, which is =tar=.  So I have re-packed it, and made it available in my own server.  Here's the command line to download it:
+And we are ready to download.  Now let me take a small detour.  What you would typically do is go to the [[https://getbootstrap.com][Bootstrap]] page, right-click in the download link, copy the address, and paste it in the command line to download.  But it is distributed as a zip file, and I want to show you UNIX way, which is =tar=.  So I have re-packed it, and made it available in my own server.  Here's the command line to download it:
 #+begin_src sh :results none
-  curl -Os http://juanreyero.com/bootstrap-3.0.3-dist.tgz
+  curl -Os https://juanreyero.com/bootstrap-3.0.3-dist.tgz
 #+end_src
 
 And make sure it came,
@@ -189,9 +190,9 @@ You'll certainly want to build =tar= files.  You do it by replacing the =x= in t
 : a changek
 : a changek/index.html
 
-#+begin_html
-  <a href="http://xkcd.com/1168/"><img class="center" alt="xkcd tar" src="http://imgs.xkcd.com/comics/tar.png"/></a>
-#+end_html
+#+begin_export html
+  <a href="https://xkcd.com/1168/"><img class="center" alt="xkcd tar" src="https://imgs.xkcd.com/comics/tar.png"/></a>
+#+end_export
 
 *** Summary of =tar=
 
@@ -299,7 +300,7 @@ And now search again,
 :ID:       3E414D1D-B639-4DFA-98FD-42FBD5C5E9D9
 :END:
 
-The =diff= program returns the difference between two files, using a clever but easy to understand [[http://en.wikipedia.org/wiki/Diff#Unified_format][syntax]].  Let's take two identical files: the =index.html= file, and an exact copy:
+The =diff= program returns the difference between two files, using a clever but easy to understand [[https://en.wikipedia.org/wiki/Diff#Unified_format][syntax]].  Let's take two identical files: the =index.html= file, and an exact copy:
 #+begin_src sh
   cp index.html another.html ; ls
 #+end_src

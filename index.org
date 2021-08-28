@@ -1,14 +1,15 @@
 # -*- coding: utf-8; eval: (rename-buffer "wh-index.org") -*-
-#+begin_html
+#+OPTIONS:   TeX:t skip:nil d:nil todo:t pri:nil tags:nil toc:nil
+#+begin_export html
 ---
 layout: article
 more: main page
 title: The Hacker Ways
 author: Juan Reyero
-excerpt: Contents of The Hacker Ways, a book that will teach you the UNIX work environment.  Use a computer like a pro.
+excerpt: Contents of The Hacker Ways, a book that will teach you the UNIX work environment.
 keywords: unix terminal development teaching
 ---
-#+end_html
+#+end_export
 
 * The Hacker Ways
 
@@ -27,12 +28,12 @@ It is not finished, but you can already buy it from [[https://leanpub.com/hacker
 #+include: "res/subscribe.html"
 
 Also, follow me on @hackerways for more frequent updates:
-#+begin_html
+#+begin_export html
 <center>
 <a href="https://twitter.com/hackerways" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @hackerways</a>
 </center>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-#+end_html
+#+end_export
 
 ** Contents
 
