@@ -13,11 +13,17 @@ keywords: unix terminal development teaching
 
 * The Hacker Ways
 
-A gentle introduction to the command line and the UNIX toolset.
+/A gentle introduction to the command line and the UNIX toolset./
 
-The UNIX toolset, like the one you'll find in Linux and OSX, is the work environment of choice of a very large number of programmers and research scientists.  If you are interested in a career as a programmer, data analyst, or researcher, you'll need to master it.
+#+begin_export html
+<br/>
+#+end_export
 
-This book will teach you all you need to get started.  UNIX can be daunting until you understand its logic: by the end of the book you will, and you'll know where to look for more.
+The UNIX toolset, like the one you'll find in Linux and OSX, is the work environment of choice of many programmers and research scientists.  If you are interested in a career as a programmer, data analyst, or researcher, you'll need to master it.
+
+This book will teach you what you need to get started.  UNIX can be daunting until you understand its logic: by the end of the book you will, and you'll know where to look for more.
+
+** COMMENT Not buy
 
 #+begin_center
 *[[https://leanpub.com/hackerways][Get your copy]] of The Hacker Ways*
@@ -28,6 +34,7 @@ It is not finished, but you can already buy it from [[https://leanpub.com/hacker
 #+include: "res/subscribe.html"
 
 Also, follow me on @hackerways for more frequent updates:
+
 #+begin_export html
 <center>
 <a href="https://twitter.com/hackerways" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @hackerways</a>
