@@ -50,6 +50,9 @@ toc: |
 #+end_src
 
 * §2 --- The way of the terminal
+:PROPERTIES:
+:ID:       454A6C63-4D72-4414-8E5B-01C34C3985E2
+:END:
 
 Learning only happens with practice.  Throughout this book I shall strive to make it easy for you to actually go to your computer and try things out: but unless you get excited about a project ---something you want to build--- and start working on it you'll find it very hard to learn.  In this chapter we'll start a project: we'll begin a web site.
 
@@ -83,9 +86,6 @@ Type yourself, don't cut and paste.  Remember that you want to build muscle memo
 Throughout the book we'll find places where you need to type characters with a modifier, like control or meta (usually the command key or the alt key in OSX).  I will use =C= for control, =M= for meta, followed with a =-= and the key.  For example, =C-d= means press control, and with control pressed type =d=, and =C-j n= means type control =j=, then =n= without control.
 
 ** The directory structure
-:PROPERTIES:
-:ID:       454A6C63-4D72-4414-8E5B-01C34C3985E2
-:END:
 
 The shell always thinks that it is in some directory.  You may ask where it thinks it is by typing the following command, ended with a return:
 

@@ -39,6 +39,9 @@ toc: |
 #+end_src
 
 * §3 --- Basic UNIX tools
+:PROPERTIES:
+:ID:       EC6C0221-E3A6-4A7C-87F6-334EB3288A1E
+:END:
 
 Most of the tools you'll be using in the terminal, including those presented in the [[file:tools.org][previous chapter]], were designed by the people who created UNIX back in the late sixties and early seventies.  They did an amazing job.  People like [[https://en.wikipedia.org/wiki/Ken_Thompson][Ken Thompson]] and [[https://en.wikipedia.org/wiki/Dennis_Ritchie][Dennis Ritchie]] are heroes in the computing world: the system they created is at the heart of most servers running the internet, and at the core of all OSX and Linux computers.  Dennis also invented the C programming language, with which most of the rest has been written.
 
@@ -65,9 +68,6 @@ Just as we left it in the [[file:terminal.org][previous chapter]].  We can also 
 : How's that going?
 
 ** Bring in some content
-:PROPERTIES:
-:ID:       EC6C0221-E3A6-4A7C-87F6-334EB3288A1E
-:END:
 
 We'll be using [[https://getbootstrap.com][Bootstrap]] to help us style our page.  Bootstrap is a library; a bunch of files intended to work together in order to provide some functionality to programmers.  In this case, the functionality we'll get from it is an easy way to give a professional look to your pages and to make them adapt to different screen sizes.
 

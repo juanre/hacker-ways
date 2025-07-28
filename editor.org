@@ -36,6 +36,9 @@ toc: |
 #+end_src
 
 * §4 --- The way of the editor
+:PROPERTIES:
+:ID:       5F4A0549-A88D-4784-BE17-8E1EF743BE98
+:END:
 
 Remember how we said that [[id:9365B629-17FA-4CFD-A473-A5528DEB75D7][everything is text]].  In plain text files you write programs, configure websites, select options for how to interact with many programs ---including the shell--- and store your data.
 
@@ -46,9 +49,6 @@ Vi is smaller than Emacs (seven times smaller in my system) and it is ubiquitous
 Emacs is bigger, but infinitely configurable.  I find it more convenient for most editing, and some of its editing modes (like [[http://orgmode.org][orgmode]]) are awesome.  Emacs is what I am using to write this, and the program where I spend most of my time at the computer.
 
 ** Editing with Vi
-:PROPERTIES:
-:ID:       5F4A0549-A88D-4784-BE17-8E1EF743BE98
-:END:
 
 Vi is a direct descendant of the line editing program ed ([[http://en.wikipedia.org/wiki/Ed_(text_editor)][check it out]]; it is also in your computer).  It acquired more or less its current form in 1976, and it is available pretty much everywhere.  Many programmers use it for all their editing.
 

@@ -43,6 +43,9 @@ toc: |
 #+end_src
 
 * §6 --- Speaking Python
+:PROPERTIES:
+:ID:       410AC28C-9211-4B4B-A642-E7C4BCF155A2
+:END:
 
 So far we have been talking to the shell, and our programs have been a sequence of commands that the shell has executed one after the other.  But there are many other languages we can talk to the computer ---assuming, that is, that we are running a program that understands them.
 
@@ -51,9 +54,6 @@ Python is a great language to learn.  Invented by [[http://en.wikipedia.org/wiki
 I won't be able to give you a full account of Python.  My goal is to help you understand what programming in Python looks like, and how it is done in the context of the shell.   By the end of this chapter you'll have written and run a first Python program, and you'll be on your way to learning much more.
 
 ** Running Python
-:PROPERTIES:
-:ID:       410AC28C-9211-4B4B-A642-E7C4BCF155A2
-:END:
 
 You can start playing with Python simply by running it:
 

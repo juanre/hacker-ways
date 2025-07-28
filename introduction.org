@@ -20,19 +20,19 @@ toc: |
   <li><a href="#sec-1-4">The Way of the Future</a>
   </li>
   </ul>
----
-#+end_export
+---#
++end_export
 
 * §1 --- Introduction
+:PROPERTIES:
+:ID:       A4157432-5137-4A7B-A8DA-97F07B3BD234
+:END:
 
 There is a better way to deal with computers.  Hackers have been developing and using it for at least 40 years: it is the way of the command line, of the conversation with the computer in languages that are neither human nor machine, but a carefully crafted middle ground.  Hackers, by the way, is how we call people who know well their tools, who dare to explore, and who need to build things.  In the words of [[http://paulgraham.com/gba.html][Paul Graham]], "To programmers, 'hacker' connotes mastery in the most literal sense: someone who can make a computer do what he wants".
 
 You'll find the tools of the hackers in Linux, in OSX, in a [[http://www.raspberrypi.org][Raspberry Pi]], and running most of the web.  By learning them you'll become much more productive, and a realm of things that were previously unthinkable will become possible.  You will became able to talk your computer into doing what you want.  And you will be mastering the tools that scientists, programmers, engineers, statisticians, mathematicians and analysts all over the world are using.
 
 ** Why this book
-:PROPERTIES:
-:ID:       A4157432-5137-4A7B-A8DA-97F07B3BD234
-:END:
 
 Some years ago my 15 year old son came up with what he thought was a great business idea.  He would build a website about his favorite music band.  Then he would have lots of visitors, and he would sell them something or other and thereby make tons of money.  I of course dismissed it as one of his bold late-night, think-big plans, and secretly worried that he would end up going to business school and into marketing.  But then he started actually working, and he did so along a line I had not foreseen: he opened an [[http://instagram.com/rageandloveidiot][Instagram account]], and started working on building a following.
 

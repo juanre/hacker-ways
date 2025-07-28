@@ -27,6 +27,9 @@ toc: |
 #+end_export
 
 * §7 --- Making the computer work for you
+:PROPERTIES:
+:ID:       8DF24CAD-4CFD-4A6C-8C6F-0D56FBDB45C9
+:END:
 
 In the previous chapter we saw how to interact with Python.  In this chapter we want to start using it to do interesting stuff, but before we'll spend some time improving our work environment.
 
@@ -37,9 +40,6 @@ Once we understand =screen= we'll learn how to install Python packages.
 By the end of the chapter you will know how to use =screen= to work in parallel workspaces within the terminal.  You will have also learned how to find and install Python packages, and you'll know a bit more about system administration.  You will have a rather nice Python environment set up, and we'll use it to take a mathematical detour that will give you a feeling of the many cool things you can do easily with Python once you know your way around.  You may, of course, skip the last part if you don't care about math: read the first parts, were we talk about =screen= and Python packages, and move on.
 
 ** The case for improving your work environment
-:PROPERTIES:
-:ID:       8DF24CAD-4CFD-4A6C-8C6F-0D56FBDB45C9
-:END:
 
 It is good that you experiment with your work environment, and figure out how to tailor it to your needs.  And not only for the obvious fact that you might spend many hours a day in front of your computer, and you'd rather be comfortable.  The best work happens when the computer does not interfere between you and your task.  The interface to the computer should be as transparent to your thought processes as possible, the interaction effortless and automatic.  Only then your attention will be focused, and your work your best[fn:flow].
 

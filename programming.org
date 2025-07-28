@@ -43,15 +43,15 @@ toc: |
 #+end_src
 
 * §5 --- From the shell to a program
+:PROPERTIES:
+:ID:       149ED997-4CDC-4026-B5D6-A5DAD843E3EB
+:END:
 
 Programming is a natural extension of the types of conversation that we've been having with the computer.  If, instead of writing directly to the shell, you write the commands in a file, you can then ask the shell to run whatever it finds in it.  Writing directly in the shell is like interactively asking somebody to do something, wait for the result, then ask something else, and so forth; writing the commands in a file is like leaving a note with instructions for somebody.
 
 This file with the instructions for the shell is a program.  Some would rather call it a script, because the computer will go over it one step at a time without taking first the time to think about what's to be done and try to optimize it (yes, we can do that too, and you'll get a glance in the next chapter).  Don't be concerned with the difference between program and script.  It was always fuzzy anyway, and it is now at the point where it is completely irrelevant.
 
 ** Our first program
-:PROPERTIES:
-:ID:       149ED997-4CDC-4026-B5D6-A5DAD843E3EB
-:END:
 
 Open a file named =shelltest.sh=, for example with Vi,
 
